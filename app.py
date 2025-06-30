@@ -26,14 +26,15 @@ load_css("styles/metric.css")
 load_css("styles/sidebar.css")
 
 # URL de tu archivo en Google Drive
+gdrive_url = "https://drive.google.com/uc?id=1pmbNwVEDxSHHeiV-FZBMVXs6MCRjPRix"
+# gdrive_url = "https://drive.google.com/uc?id=1CYXR-ZTiIPA7kAovLYNgkXj5AoVjAfEd"
 
-gdrive_url = "https://drive.google.com/uc?id=1CYXR-ZTiIPA7kAovLYNgkXj5AoVjAfEd"
 
 # Llama la función que descarga y carga el DataFrame
 try:
     df = load_or_download_df(gdrive_url)
     # st.success("Datos cargados exitosamente.")
-    # st.write("Vista previa del DataFrame:", df.head())
+    # st.write("Vista previa del DataFrame:", df.head(), df.shape)
 except RuntimeError as e:
     st.error(str(e))
     st.stop()

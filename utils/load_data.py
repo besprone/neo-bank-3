@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit as st
 
 @st.cache_data  # 👈 esta línea es la clave
-def load_or_download_df(url: str, local_folder: str = "data", filename: str = "df_n.csv") -> pd.DataFrame:
+def load_or_download_df(url: str, local_folder: str = "data", filename: str = "df_sample.csv") -> pd.DataFrame:
     """
     Descarga el archivo CSV desde Google Drive si no existe localmente
     y lo carga como un DataFrame de pandas.
