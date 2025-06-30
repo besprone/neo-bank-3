@@ -1,0 +1,11 @@
+/* styles/tabs.css */
+.stTabs [data-baseweb="tab"]{
+    padding: 16px 16px;
+    box-sizing: content-box;
+}
+.stTabs [data-baseweb="tab"] p{
+    font-size: 20px;
+    font-weight: 400;
+    color: white;
+    line-height: 1em;
+}

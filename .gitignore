@@ -1,0 +1,32 @@
+# Entornos virtuales
+venv/
+.venv/
+venv310/
+
+# Archivos temporales y bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de datos locales
+data/
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.jsonl
+*.tsv
+*.txt
+
+# Configuración local / variables de entorno
+.env
+.env.*
+
+# Checkpoints de Jupyter
+.ipynb_checkpoints/
+
+# Archivos del sistema/macOS
+.DS_Store
+
+# Archivos de VSCode (opcional si usas otro editor)
+.vscode/
