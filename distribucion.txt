@@ -1,0 +1,95 @@
+📘 Tabla: users
+Distribución por edad (birth_year)
+
+Distribución por país (country)
+
+Distribución por ciudad (city)
+
+Distribución por fecha de creación de cuenta (created_date_user)
+
+Distribución por uso de crypto (user_settings_crypto_unlocked)
+
+Distribución por plan (plan)
+
+Distribución por acepta push (attributes_notifications_marketing_push)
+
+Distribución por acepta email (attributes_notifications_marketing_email)
+
+Distribución por número de contactos (num_contacts)
+
+Distribución por número de referidos (num_referrals)
+
+Distribución por número de referidos exitosos (num_successful_referrals)
+
+--
+
+📱 Tabla: devices
+Distribución por marca del dispositivo (brand_device)
+
+--
+
+🔔 Tabla: notifications
+Distribución por motivo de la notificación (reason)
+
+Distribución por canal (channel)
+
+Distribución por estado (status)
+
+Distribución por fecha de notificación (created_date_notification) → serie de tiempo
+
+--
+
+💰 Tabla: transactions
+Distribución por tipo de transacción (transactions_type)
+
+Distribución por moneda (transactions_currency)
+
+Distribución por estado de la transacción (transactions_state)
+
+Distribución por presencia del usuario (ea_cardholderpresence)
+
+Distribución por código MCC del comercio (ea_merchant_mcc)
+
+Distribución por ciudad del comercio (ea_merchant_city)
+
+Distribución por país del comercio (ea_merchant_country)
+
+Distribución por dirección del flujo (direction)
+
+Distribución por monto en USD (amount_usd)
+
+Distribución por fecha de transacción (created_date_transaction) → serie de tiempo diaria, semanal o mensual
+
+---
+
+🧭 Próximos pasos sugeridos
+
+1. Cruces para análisis bivariado
+¿Usuarios con más transacciones tienen más edad?
+
+¿Los que usan cripto o tienen planes premium hacen más transacciones?
+
+¿El canal de notificación influye en el éxito de una acción (click, apertura, compra)?
+
+¿Existen diferencias en montos por tipo de transacción o por país?
+
+2. Segmentación de usuarios
+Crea clústeres por comportamiento: volumen de transacciones, uso de funciones, tipo de dispositivo.
+
+Identifica segmentos inactivos con potencial (ej. usuarios con muchas notificaciones pero sin transacciones).
+
+3. Análisis de retención / churn
+¿Cuántos usuarios transaccionan recurrentemente?
+
+¿Qué características tienen los usuarios que abandonan o están inactivos?
+
+4. Conversión por canal y motivo de notificación
+Si tienes datos de interacción (clicks o transacciones post-notificación), mide efectividad por canal o tipo.
+
+5. Distribuciones adicionales útiles
+Tiempo entre la creación del usuario y su primera transacción.
+
+Distribución del número total de transacciones por usuario.
+
+Diferencia entre montos promedio por canal, país o tipo de usuario.
+

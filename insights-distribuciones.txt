@@ -1,0 +1,255 @@
+🧠 Insights iniciales por categoría
+
+👥 Usuarios
+Edad: Mayor concentración de usuarios entre 25-44 años. Público objetivo claro.
+
+País y ciudad: Hay concentración en pocos países y ciudades. Esto puede guiar campañas geolocalizadas.
+
+Plan: Dominan los planes estándar, muy poca adopción de premium. Hay espacio para impulsar upgrades.
+
+Crypto: Muy baja adopción de la funcionalidad cripto (77% no la usa). Falta de interés o desconocimiento.
+
+Canales de notificación: EMAIL y PUSH dominan, SMS y "Unknown" casi nulos. Se puede reconsiderar el uso de SMS.
+
+Referidos exitosos: Muy baja participación en el programa. Falta incentivos o visibilidad.
+
+Marca de dispositivo: Distribución pareja entre Android e iOS. Optimización debe considerar ambos.
+
+
+
+🔄 Transacciones
+Estado: Alta proporción de transacciones completadas; pocas fallidas o rechazadas, lo cual es positivo.
+
+Tipo y dirección: Las transacciones de compra y hacia afuera dominan. Se puede incentivar otros usos.
+
+Moneda: USD predomina ampliamente. Otras monedas son marginales.
+
+Monto (USD): Distribución sesgada a la izquierda; la mayoría de montos son pequeños. El boxplot confirma outliers.
+
+Presencia física: Mayoría no presencial. El canal digital es dominante.
+
+
+
+⏱️ Temporalidad
+Serie de tiempo de transacciones: Crecimiento sostenido hasta cierto punto. Caída al final puede ser por datos incompletos.
+
+Notificaciones: Picos visibles que podrían alinearse con campañas o problemas técnicos.
+
+Días, semanas y meses: Se observa estacionalidad que puedes cruzar con eventos de negocio o marketing.
+
+
+
+🔔 Notificaciones
+Motivo: Algunos motivos tienen muy alto volumen. Podrías analizar si generan acciones (clicks, transacciones).
+
+Estado: Alta tasa de entregadas (bien), aunque aún hay fallas.
+
+Canal: Email y push dominan; puedes testear A/B para efectividad de cada uno.
+
+
+***************
+
+---
+
+🔄 Análisis Bivariado: Insights Clave
+
+
+👥 Usuarios
+
+
+Edad vs Crypto
+
+Los usuarios más jóvenes (18-34) son los que más activan cripto, aunque sigue siendo bajo en general. Esto sugiere que una campaña enfocada en ese grupo etario puede aumentar adopción.
+
+
+País vs Plan
+
+Algunos países tienen más proporción de usuarios premium (si los hay). Puedes investigar qué factores culturales o del producto impulsan eso.
+
+
+Edad vs Plan
+
+Usuarios mayores tienden a estar en planes estándar. Tal vez no ven valor en cambiar. Se puede rediseñar la propuesta de valor para ese segmento.
+
+
+Número de contactos vs Referidos exitosos
+
+Muchos usuarios con muchos contactos no generan referidos exitosos. ¿Está fallando el incentivo o el proceso de referidos?
+
+---
+
+🔄 Transacciones
+
+
+Presencia (online vs presencial) vs Monto
+
+Las transacciones presenciales tienen montos más altos en promedio. Puedes evaluar promociones para canal presencial (si relevante).
+
+
+Estado vs Tipo de transacción
+
+Las transacciones fallidas se concentran más en ciertos tipos (e.g., pagos recurrentes o ciertos MCC). Hay oportunidades para mejorar la infraestructura o UX ahí.
+
+
+Dirección vs Monto
+
+Los flujos de salida (gasto) dominan y tienen más variabilidad en monto. Podría explorarse la promoción de entradas (como top-ups o recompensas).
+
+---
+
+🔔 Notificaciones
+
+
+Canal vs Estado
+
+Algunos canales tienen más fallos (e.g., SMS o "Unknown"). Puedes depurar canales o priorizar los más confiables (push/email).
+
+
+Canal vs Motivo
+
+Algunos motivos se comunican solo por un canal (p. ej. promociones solo por email). Hay espacio para experimentar con otros canales.
+
+
+Motivo vs Resultado (si tuvieras clicks o respuestas)
+
+Si puedes cruzar con datos de acciones tras la notificación, sería clave para analizar efectividad por tipo de campaña.
+
+---
+
+⏱️ Temporalidad
+
+
+Fecha vs Monto
+
+Picos de transacciones pueden coincidir con quincenas, campañas o beneficios. Si detectas esto, puedes alinear mejor tus promociones.
+
+
+Notificaciones vs Transacciones
+
+Días con más notificaciones a veces preceden a más transacciones. Puedes cuantificar esta relación como efecto de campañas.
+
+---
+
+1. Priorizar campañas geolocalizadas (ciudades/paises con más adopción).
+2. Segmentar usuarios por edad y plan para campañas personalizadas.
+3. Evaluar estrategia de referidos, ya que tiene bajo rendimiento incluso con usuarios bien conectados.
+4. Optimizar canales de notificación, retirando los menos efectivos y haciendo A/B con los dominantes.
+5. Revisar outliers en montos grandes para detectar fraudes o clientes VIP.
+6. Relacionar picos de actividad con campañas concretas para medir su éxito.
+
+---
+
+| Cluster | Color              | Descripción                                                                                          | Insight                                                                            |
+| ------: | ------------------ | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+|       0 | Azul oscuro        | Casi sin transacciones ni notificaciones. Usuarios inactivos o recién registrados.                   | Segmento para reactivación o eliminación de base si tienen mucho tiempo.           |
+|       1 | Púrpura intermedio | Transacciones moderadas, pocas notificaciones. Usuarios que usan el producto sin mucho engagement.   | Explorar más engagement o notificaciones personalizadas.                           |
+|       2 | Naranja claro      | Alta cantidad de notificaciones, pero muy pocas transacciones. Parecen usuarios spam o no responden. | Revisar efectividad de las notificaciones, hacer A/B testing o mejorar onboarding. |
+|       3 | Amarillo brillante | Alto en transacciones y moderado en notificaciones. Usuarios muy activos (heavy users).              | Fidelizar, ofrecer beneficios y estudiar su comportamiento como benchmark.         |
+
+🔍 Cruces destacados por clúster
+
+📱 Tipo de plan
+Clúster 0 y 1 tienen mayoría en plan STANDARD
+
+Los planes premium se concentran ligeramente más en el clúster 3 → los usuarios más activos sí valoran más
+
+👉 Acción: Promover upgrades a usuarios del clúster 1 con incentivos.
+
+
+
+🧠 Uso de cripto
+Clústeres 0 y 1 tienen bajo uso.
+
+Clúster 3 es el que más ha activado cripto → adopción relacionada con uso general.
+
+👉 Acción: Enfocar campañas de adopción de cripto en clúster 1 y 2, no en el 0.
+
+
+
+🌍 País
+Clúster 0 es mayoritario en varios países, especialmente en uno dominante.
+
+Clúster 3 se concentra en pocos países.
+
+👉 Acción: Enfocar esfuerzos de reactivación por país según concentración de clúster 0.
+
+
+
+🎂 Edad
+Usuarios jóvenes (nacidos 1985-2000) predominan en clústeres 0 y 1.
+
+Clúster 3 tiene un rango más variado, pero sigue concentrado en edades productivas.
+
+👉 Acción: Hacer campañas personalizadas por edad y cluster (por ejemplo, onboarding para jóvenes del clúster 2).
+
+
+Siguientes pasos sugeridos
+Mapear comportamiento de clúster 3
+
+¿Qué usan? ¿Qué activan? ¿Cómo navegan? → Benchmark.
+
+Campañas diferenciadas
+
+Cluster 0: reactivación / limpieza.
+
+Cluster 1: incentivo al uso (cashback, premios).
+
+Cluster 2: mejorar onboarding / contenido educativo.
+
+Cluster 3: programa de fidelización.
+
+Monitoreo futuro
+
+Hacer seguimiento del movimiento de usuarios entre clústeres con el tiempo.
+
+
+-----
+
+🔍 ¿Cómo interpretarlo?
+EMAIL parece ser el canal con más motivos variados y en general mejor tasa de conversión, especialmente con razones como:
+
+METAL_RESERVE_PLAN
+
+ONBOARDING_TIPS_ACTIVATED_USERS
+
+PUSH también tiene motivos efectivos, pero con tasas más bajas.
+
+SMS tiene pocos motivos y tasas muy bajas en comparación.
+
+unknown es un canal posiblemente mal etiquetado o incompleto. Podría valer la pena limpiar esos registros o investigarlos.
+
+
+-----
+
+La mayoría de los usuarios realizan su primera transacción muy pronto (dentro de los primeros días).
+
+Hay una larga cola de usuarios que tardan mucho más, lo cual es común en productos con adopción progresiva o reactivaciones.
+
+
+-----
+
+🧠 Insights sobre tiempo hasta primera transacción
+1. La mayoría de los usuarios transaccionan pronto, pero hay una larga cola de inactividad
+Aunque muchos usuarios realizan su primera transacción en los primeros días, existe una fracción importante que tarda semanas o incluso más de un año.
+
+Esto sugiere que hay usuarios que podrían activarse con mejor acompañamiento o incentivos.
+
+2. Las cohortes más recientes se activan más rápido
+Usuarios registrados en meses recientes (ej. 2018-12, 2019-01) tienen tiempos medianos mucho menores que cohortes anteriores (ej. 2018-01).
+
+Indica que mejoras recientes en producto o comunicación han tenido impacto positivo en onboarding.
+
+3. No hay diferencias marcadas entre canales, pero SMS muestra menor tiempo mediano
+En promedio, PUSH, EMAIL y SMS tienen tiempos similares, pero SMS tiene una mediana ligeramente menor.
+
+Esto sugiere que SMS podría ser más efectivo para activar usuarios rápidamente, especialmente si se refuerza con contenido personalizado.
+
+4. Los usuarios jóvenes (18-24) tardan más en transaccionar
+El grupo de 18-24 años tiene tiempos significativamente más altos que otros grupos de edad.
+
+Podría deberse a menor urgencia percibida o falta de entendimiento del producto → se recomienda adaptar mensajes de onboarding y beneficios a su perfil.
+
+5. El país de origen influye en la velocidad de activación
+Usuarios en países como Francia (FR) y España (ES) transaccionan más rápido que en Polonia (PL) o Gran Bretaña (GB).
+
+Esto puede estar relacionado con localización del producto, estrategias de marketing o confianza en el servicio.

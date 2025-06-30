@@ -1,0 +1,50 @@
+📊 Reporte ejecutivo: Insights clave de Neo Bank
+
+1️⃣ Conversiones y retención
+
+* Solo 9.93% de usuarios registrados convierten (realizan al menos una transacción), con un promedio de 82.9 días hasta la primera transacción, lo que revela alta fricción en el onboarding.
+* El 36.77% de los usuarios churned (no convierten o dejan de usar la app), con el 35.2% de conversiones concentradas en los primeros 120 días. Después de ese período, la probabilidad de conversión cae abruptamente.
+
+2️⃣ Perfil de usuarios
+
+* La mayoría de usuarios están en planes STANDARD, con baja adopción de planes pagos (METAL, PREMIUM), lo que limita el ARPU.
+* Los grupos de edad 25-44 años concentran la mayor base de usuarios y transacciones, con usuarios más jóvenes (18-24) como segmento en crecimiento.
+* Alta concentración geográfica en pocos países y ciudades principales de Europa (FR, DE, AT).
+
+3️⃣ Canales de activación
+
+* EMAIL y PUSH son los principales canales, pero presentan baja efectividad: la mayoría de usuarios notificados no convierten.
+* Canales como SMS prácticamente no generan impacto.
+
+4️⃣ Funcionalidades avanzadas
+
+* Solo el 14% de usuarios activan la funcionalidad cripto, indicando una oportunidad para mejorar la educación o incentivos sobre este feature.
+
+5️⃣ Churn
+
+* El churn es alto y transversal: afecta todos los segmentos (planes, canales, grupos de edad), lo que indica que los problemas son estructurales y no limitados a un grupo específico.
+* Los gráficos de usuarios activos vs. inactivos muestran que las estrategias actuales de retención no son suficientes.
+
+---
+
+## 🎯 Conclusiones estratégicas
+
+✅ Mejorar activación temprana: enfocar recursos en que los usuarios conviertan en los primeros 30 días, donde las probabilidades son significativamente mayores.
+
+✅ Optimizar comunicación: revisar contenido y timing de mensajes en EMAIL/PUSH, así como explorar nuevos canales.
+
+✅ Fomentar upgrades: diseñar programas que incentiven el cambio de STANDARD a planes pagos.
+
+✅ Promover funcionalidad cripto: crear campañas educativas y de incentivos para que más usuarios la activen.
+
+---
+
+## 🔎 Propuestas para análisis adicional
+
+* Dashboard de churn por país/ciudad → identificar mercados con mejor retención.
+* Dashboard que relacione el número de notificaciones enviadas con conversión/churn → entender si el volumen de mensajes ayuda o satura.
+* Dashboard detallado de días promedio a conversión por plan → detectar si algunos planes convierten más rápido.
+
+---
+
+### 👉 ¿Te gustaría que prepare alguno de estos dashboards? ¿O prefieres que ayude a armar una presentación a partir de este reporte?

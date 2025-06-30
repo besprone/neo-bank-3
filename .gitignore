@@ -16,7 +16,6 @@ data/
 *.parquet
 *.jsonl
 *.tsv
-*.txt
 
 # Configuración local / variables de entorno
 .env

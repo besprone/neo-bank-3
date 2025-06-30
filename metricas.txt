@@ -1,0 +1,54 @@
+💡 ¿Qué es un usuario "convertido"?
+Un usuario convertido es aquel que pasó de registrarse a realizar su primera acción valiosa.
+En tu caso, lo más estándar es:
+
+✅ Un usuario se considera convertido cuando ha realizado al menos una transacción.
+
+Tasa de conversión = (usuarios que han transaccionado / usuarios totales) * 100
+
+Ejemplo
+    1,000 usuarios registrados
+    250 hicieron al menos una transacción
+    
+    → Conversión = (250 / 1000) × 100 = 25%
+
+
+#################################
+
+Este análisis entra claramente en el **módulo 4** que definiste:
+
+---
+
+### 🎯 **4. ⚠️ Identificación de churn y recomendaciones**
+
+**Objetivo del módulo**:
+
+> “**Provide business recommendations to reduce churn rate**”
+
+---
+
+### ✅ Este análisis responde directamente a:
+
+> **Usuarios que transaccionaron pero luego abandonaron (churned)**
+
+Más específicamente, **te permite cuantificar el abandono real** dentro de una población que *sí mostró intención o compromiso inicial* (al menos una transacción), lo que lo hace mucho más valioso que simplemente medir usuarios inactivos.
+
+---
+
+### 📌 ¿Por qué es clave?
+
+* Te da **la magnitud real del problema** de churn.
+* Define la **base de usuarios objetivo para retención**.
+* Es la base para profundizar en **segmentos con mayor churn** (edad, canal, plan, etc.).
+
+---
+
+### ➕ Si lo documentas…
+
+Lo puedes presentar así:
+
+* **Insight**: "El 78% de los usuarios que realizaron al menos una transacción no han vuelto a operar después de cierto tiempo (churned)."
+* **Evidencia**: `7,144 churned / 9,117 total con transacción`
+* **Recomendación**: "Priorizar acciones de reactivación y segmentar estos usuarios para campañas específicas de retención."
+
+¿Te gustaría que redactemos esta parte como insight formal o lo llevamos a gráfico?

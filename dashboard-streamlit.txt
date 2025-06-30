@@ -1,0 +1,151 @@
+
+
+## 🧭 **Estructura general del dashboard - Neo Bank**
+
+### 1. 🏠 Resumen general
+
+**Objetivo**: Visión ejecutiva rápida del estado actual de los usuarios y conversiones.
+
+🔸 **KPIs actuales** (ya los tienes implementados):
+
+* Total de usuarios
+* Usuarios con transacciones
+* % de conversión a usuarios activos
+* Promedio de días a conversión
+
+🔸 **Opcionales adicionales**:
+
+* % de usuarios notificados
+* % de usuarios con más de una transacción
+* Última fecha de actividad
+
+---
+
+### 2. 📊 Retención y conversión de usuarios
+
+**Objetivo**: *“Analyze users retention and understand which users are more engaged”*
+
+🔹 **Visualizaciones**:
+
+* Curva de retención por semana (cohorte)
+* Histograma de días a primera transacción
+* % de usuarios que convierten en 1/7/30 días
+* Evolución semanal de usuarios nuevos vs. activos
+
+🔹 **KPIs complementarios**:
+
+* Usuarios recurrentes (%)
+* Tiempo medio entre notificación y transacción
+
+---
+
+### 3. 👥 Perfiles de usuario y uso del producto
+
+**Objetivo**: *“Understand product usage and identify personae”*
+
+🔹 **Visualizaciones**:
+
+* Distribución por plan, edad, ciudad, canal
+* Número de transacciones por segmento de edad
+* % de conversión por grupo (ej. plan básico vs premium)
+* Uso de funcionalidades (si está en el dataset)
+
+🔹 **Opcionales**:
+
+* Radar chart con atributos promedio por segmento
+* Mapa por ciudad o país (si hay geodatos)
+
+---
+
+### 4. ⚠️ Identificación de churn y recomendaciones
+
+**Objetivo**: *“Provide business recommendations to reduce churn rate”*
+
+🔹 **Visualizaciones**:
+
+* Usuarios notificados pero no convertidos
+    * Por canal
+    * Por plan
+    * Por segmento de edad
+* Análisis de inactividad (usuarios que nunca hicieron transacción)
+    * Por segmento de edad
+    * Por plan
+    * Por canal
+* Días sin actividad desde alta
+* Funnel: notificación → vista → transacción
+
+🔹 **Recomendaciones** (basadas en análisis):
+
+* Mejores horarios/canales para notificar
+* Segmentos con menor conversión
+* Acciones recomendadas (ej. onboarding, reactivación)
+
+---
+
+### 5. ⚙️ Filtros globales
+
+* Rango de fechas
+* Plan
+* Canal de adquisición
+* Edad o grupo etario
+* País/ciudad
+
+---
+
+
+
+
+
+
+
+🏠 1. Resumen general
+
+        🔹 Métricas clave (usuarios totales, % conversión, % churn, promedio días a primera transacción).
+        🔹 Evolución semanal de usuarios nuevos vs. activos (gráfico de línea).
+        🔹 Curva de retención por cohortes semanales.
+
+🔍 2. Retención y conversión de usuarios
+    
+    🎯 Objetivo: “Analyze users retention and understand which users are more engaged”
+
+        🔹 Histograma de días hasta la primera transacción.
+        🔹 % de usuarios que convierten en 1/7/30 días.
+
+👥 3. Perfiles de usuario y uso del producto
+    
+    🎯 Objetivo: “Understand product usage and identify personae”
+
+        🔹 Distribución de usuarios por plan.
+        🔹 Distribución de usuarios por edad.
+        🔹 Distribución de usuarios por canal de notificación.
+        🔹 Distribución de usuarios por país en mapa interactivo.
+        🔹 Distribución de usuarios por dispositivo.
+        🔹 Número de transacciones por grupo de edad o plan.
+        🔹 % de conversión por segmento (plan, edad).
+        🔹 Uso de funcionalidades avanzadas (e.g., activación de crypto).
+
+🚨 4. Identificación de churn y recomendaciones
+
+    🎯 Objetivo: “Provide business recommendations to reduce churn rate”
+
+        🔹 Usuarios notificados convertidos vs no convertidos:
+            🔹 Por canal
+            🔹 Por plan
+            🔹 Por grupo de edad
+        🔹 Análisis de inactividad (usuarios que nunca hicieron transacción):
+            🔹 Por grupo de edad
+            🔹 Por plan
+            🔹 Por canal
+        🔸 Días de inactividad desde la última transacción (distribución).
+        🔹 Distribución y % de usuarios churned vs. no churned.
+            🔹 Por grupo de edad
+            🔹 Por plan
+            🔹 Por canal
+        Recomendaciones accionables basadas en análisis:
+            Mejores segmentos para retención.
+            Acciones de reactivación.
+            Ajustes sugeridos en onboarding y notificaciones.
+
+📁 5. Explorador de dataset (opcional)
+        Filtros interactivos por plan, edad, canal, país, estado de churn.
+        Vista tabular con opción de exportar datos filtrados.
