@@ -68,16 +68,17 @@ def evoluacion_usuarios(df):
     return fig_evoluacion
 
 def curva_retencion(df_retencion_cohortes):
-    # Usar df_retencion_cohortes directamente
+    # Pivot para matriz de retención
     retention_pivot = df_retencion_cohortes.pivot(
         index='cohort_week',
         columns='weeks_since_signup',
         values='active_users'
     ).fillna(0)
 
-    # Normalizar por cohorte para obtener tasas
+    # Normalizar: tasa de retención por cohorte
     retention_rate = retention_pivot.divide(retention_pivot.iloc[:, 0], axis=0)
 
+    # Plot
     fig_matrix = px.imshow(
         retention_rate,
         labels=dict(x='Semanas desde registro', y='Cohorte de registro', color='Tasa de retención'),
