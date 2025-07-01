@@ -9,6 +9,7 @@ from sections.churn import churn
 
 from utils.style_loader import load_css
 from utils.load_data import load_or_download_df
+from utils.load_data import load_df_resumen_general, load_df_retencion_cohortes
 
 from components.render_tabs import render_tabs
 from components.render_filters import render_filters
@@ -51,11 +52,9 @@ tab1, tab2, tab3, tab4, tab5 = render_tabs()
 with tab1:
     st.header("🏠 Resumen general")
     # Crear sub-DataFrame solo con las columnas que resumen_general necesita
-    df_resumen = df_filtrado[[
-        'user_id', 'converted', 'create_date_user', 'create_date_transaction',
-        'churned', 'has_transaction'
-    ]].copy()
-    resumen_general(df_resumen)
+    df_resumen = load_df_resumen_general()  # tu función que llama BigQuery
+    df_retencion_cohortes = load_df_retencion_cohortes() # tu función que llama BigQuery
+    resumen_general(df_resumen, df_retencion_cohortes)
 
 with tab2:
     st.header("👥 Perfiles de usuario y uso del producto")
