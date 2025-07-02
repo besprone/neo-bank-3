@@ -1,10 +1,10 @@
 .metric-card {
-    background-color: rgb(18, 21, 29);
+    /* background-color: rgb(18, 21, 29); */
     padding: 1.5rem;
     border-radius: 1rem;
     text-align: center;
-    color: white;
-    border: 1px solid rgb(24, 28, 39);
+    /* color: white; */
+    border: 1px solid rgb(59, 67, 86);
     margin-bottom: 1rem;
 }
 .metric-card h2 {

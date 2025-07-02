@@ -6,6 +6,6 @@
 .stTabs [data-baseweb="tab"] p{
     font-size: 20px;
     font-weight: 400;
-    color: white;
+    /* color: white; */
     line-height: 1em;
 }
