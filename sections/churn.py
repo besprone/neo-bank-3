@@ -53,31 +53,28 @@ def churned_distribucion(df, distribucion):
 
 
 def analisis_inactividad(df, distribucion):
-    # Filtrar usuarios activos e inactivos
+    # Separar usuarios activos e inactivos
     usuarios_activos = df[df['has_transaction'] == True]
     usuarios_inactivos = df[df['has_transaction'] == False]
 
-    # Agrupar activos
+    # Agrupar activos por canal
     activos = (
         usuarios_activos.groupby(distribucion)['user_id']
         .nunique()
         .reset_index(name='usuarios_activos')
     )
 
-    # Agrupar inactivos
+    # Agrupar inactivos por canal
     inactivos = (
         usuarios_inactivos.groupby(distribucion)['user_id']
         .nunique()
         .reset_index(name='usuarios_inactivos')
     )
 
-    # Unir ambos dataframes
-    comparacion = pd.merge(
-        activos, inactivos,
-        on=distribucion, how='outer'
-    ).fillna(0)
+    # Unir ambos
+    comparacion = activos.merge(inactivos, on=distribucion, how='outer').fillna(0)
 
-    # Calcular total y ordenar por total de usuarios (mayor a menor)
+    # Calcular total y ordenar por mayor total
     comparacion['total'] = comparacion['usuarios_activos'] + comparacion['usuarios_inactivos']
     comparacion = comparacion.sort_values('total', ascending=False)
 
@@ -87,7 +84,7 @@ def analisis_inactividad(df, distribucion):
         x=distribucion,
         y=['usuarios_inactivos', 'usuarios_activos'],
         barmode='stack',
-        labels={'value': 'Usuarios', 'variable': 'Estado', distribucion: distribucion},
+        labels={'value': 'Usuarios', 'variable': 'Estado'},
         color_discrete_sequence=px.colors.qualitative.Set1,
         text_auto=True
     )
@@ -97,9 +94,12 @@ def analisis_inactividad(df, distribucion):
     return fig_activos_inactivos, f'Usuarios activos vs. inactivos ({distribucion})'
 
 def convirtieron_no_conviertieron(df, distribucion):
+    # Filtrar solo usuarios notificados
+    df_filtrado = df[df['has_notification'] == True].copy()
+
     # Agrupar por canal y estado de conversión
     df_grouped = (
-        df[df['has_notification']]
+        df_filtrado
         .groupby([distribucion, 'converted'])['user_id']
         .nunique()
         .reset_index()
@@ -108,16 +108,14 @@ def convirtieron_no_conviertieron(df, distribucion):
         .reset_index()
     )
 
-    # Renombrar columnas para mayor claridad
+    # Renombrar columnas
     df_grouped.columns = [distribucion, 'No_convirtieron', 'Convirtieron']
 
-    # Calcular total por categoría
+    # Calcular total y ordenar
     df_grouped['Total'] = df_grouped['No_convirtieron'] + df_grouped['Convirtieron']
-
-    # Ordenar de mayor a menor total
     df_grouped = df_grouped.sort_values('Total', ascending=False)
 
-    # Graficar
+    # Crear gráfico
     fig_convirtieron_no_convirtieron = px.bar(
         df_grouped,
         x=distribucion,
@@ -125,8 +123,10 @@ def convirtieron_no_conviertieron(df, distribucion):
         labels={'value': 'Usuarios', 'variable': 'Estado'},
         barmode='stack',
         color_discrete_sequence=px.colors.qualitative.Set1,
-        text_auto=True
+        text_auto=True,
     )
+
+    fig_convirtieron_no_convirtieron.update_layout(yaxis_title='Número de usuarios')
 
     return fig_convirtieron_no_convirtieron, f'Usuarios notificados: Convirtieron vs. No Convirtieron ({distribucion})'
 

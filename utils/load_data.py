@@ -48,3 +48,27 @@ def load_df_retencion_cohortes():
     """
     df = client.query(query).to_dataframe()
     return df
+
+def load_df_perfil_usuario():
+    client = bigquery.Client()
+    query = """
+        SELECT * FROM `numeric-advice-452700-j9.neo_bank_.perfil_usuario`
+    """
+    df = client.query(query).to_dataframe()
+    return df
+
+def load_df_retencion_conversion():
+    client = bigquery.Client()
+    query = """
+        SELECT * FROM `numeric-advice-452700-j9.neo_bank_.retencion_conversion`
+    """
+    df = client.query(query).to_dataframe()
+    return df
+
+def load_df_churn():
+    client = bigquery.Client()
+    query = """
+        SELECT * FROM `numeric-advice-452700-j9.neo_bank_.churn`
+    """
+    df = client.query(query).to_dataframe()
+    return df

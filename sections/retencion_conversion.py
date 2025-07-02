@@ -4,37 +4,25 @@ import plotly.express as px
 from components.render_metric_card import render_metric_card
 
 def primera_transaccion(df):
-    # Histograma de días a primera transacción
-    # Filtrar usuarios con al menos una transacción:
-    df_txn = df.dropna(subset=['create_date_transaction'])
+    # Filtrar registros válidos
+    df_valid = df.dropna(subset=['dias_a_primera_txn'])
 
-    # Obtener la primera transacción por usuario:
-    df_first_txn = df_txn.groupby('user_id')['create_date_transaction'].min().reset_index()
-    df_first_txn.columns = ['user_id', 'first_transaction_date']
-
-    # Traer fecha de registro:
-    df_user_creation = df[['user_id', 'create_date_user']].drop_duplicates()
-    df_merged_dias = pd.merge(df_user_creation, df_first_txn, on='user_id', how='left')
-
-    # Asegura que ambas fechas no tengan zona horaria (tz-naive)
-    df_merged_dias['first_transaction_date'] = pd.to_datetime(df_merged_dias['first_transaction_date']).dt.tz_localize(None)
-    df_merged_dias['create_date_user'] = pd.to_datetime(df_merged_dias['create_date_user']).dt.tz_localize(None)
-
-    # Calcular días a la primera transacción
-    df_merged_dias['dias_a_primera_txn'] = (
-        df_merged_dias['first_transaction_date'] - df_merged_dias['create_date_user']
-    ).dt.days
-
-    # Dibujar el histograma:
-    fig = px.histogram(
-        df_merged_dias,
+    # Crear histograma
+    fig_dias = px.histogram(
+        df_valid,
         x='dias_a_primera_txn',
-        nbins=300,
-        labels={'dias_a_primera_txn': 'Días'},
+        nbins=100,
+        labels={'dias_a_primera_txn': 'Días hasta la primera transacción'},
         color_discrete_sequence=['#3BAEDA']
     )
 
-    return fig, df_merged_dias
+    fig_dias.update_layout(
+        xaxis_title='Días a primera transacción',
+        yaxis_title='Número de usuarios',
+        bargap=0.1
+    )
+
+    return fig_dias
 
 def usuarios_convierten_1_7_30(df_merged_dias):
     # Filtrar usuarios que sí hicieron transacción (días no nulos)
@@ -98,16 +86,21 @@ def nuevos_x_activos(df):
     return fig
 
 def transaction_1_7_30(df):
-    # 1) Calcular días hasta primera transacción
-    df_merged = df.dropna(subset=['create_date_transaction']).copy()
-    df_merged['create_date_transaction'] = df_merged['create_date_transaction'].dt.tz_localize(None)
-    df_merged['create_date_user'] = df_merged['create_date_user'].dt.tz_localize(None)
-    df_merged['dias_a_primera_txn'] = (df_merged['create_date_transaction'] - df_merged['create_date_user']).dt.days
 
-    # 2) Quedarse solo con el primer registro de cada usuario para no duplicar conversiones
-    df_first_txn = df_merged.sort_values('dias_a_primera_txn').drop_duplicates(subset='user_id', keep='first')
+    # 1) Copia para no modificar el original
+    df_txn = df.dropna(subset=['first_transaction_date']).copy()
 
-    # 3) Crear columnas booleanas: si convirtió en 1/7/30 días
+    # 2) Convertir fechas a datetime sin timezone
+    df_txn['first_transaction_date'] = pd.to_datetime(df_txn['first_transaction_date']).dt.tz_localize(None)
+    df_txn['create_date_user'] = pd.to_datetime(df_txn['create_date_user']).dt.tz_localize(None)
+
+    # 3) Calcular días a la primera transacción
+    df_txn['dias_a_primera_txn'] = (df_txn['first_transaction_date'] - df_txn['create_date_user']).dt.days
+
+    # 4) Conservar solo el primer registro de cada usuario (por si hubiera duplicados)
+    df_first_txn = df_txn.sort_values('dias_a_primera_txn').drop_duplicates(subset='user_id', keep='first')
+
+    # 5) Calcular columnas booleanas para los distintos rangos
     df_first_txn['converted_1d'] = df_first_txn['dias_a_primera_txn'] <= 1
     df_first_txn['converted_7d'] = df_first_txn['dias_a_primera_txn'] <= 7
     df_first_txn['converted_30d'] = df_first_txn['dias_a_primera_txn'] <= 30
@@ -116,44 +109,46 @@ def transaction_1_7_30(df):
     df_first_txn['converted_120d'] = df_first_txn['dias_a_primera_txn'] <= 120
     df_first_txn['converted_mayor_120d'] = df_first_txn['dias_a_primera_txn'] > 120
 
-    # 4) Calcular el total de usuarios registrados
+    # 6) Calcular el total de usuarios registrados
     total_users = df['user_id'].nunique()
 
-    # 5) Calcular tasas de conversión correctamente
-    conversion_1d = df_first_txn['converted_1d'].sum() / total_users * 100
-    conversion_7d = df_first_txn['converted_7d'].sum() / total_users * 100
-    conversion_30d = df_first_txn['converted_30d'].sum() / total_users * 100
-    conversion_60d = df_first_txn['converted_60d'].sum() / total_users * 100
-    conversion_90d = df_first_txn['converted_90d'].sum() / total_users * 100
-    conversion_120d = df_first_txn['converted_120d'].sum() / total_users * 100
-    converted_mayor_120d = df_first_txn['converted_mayor_120d'].sum() / total_users * 100
-
+    # 7) Calcular tasas de conversión por rango
     conversion_data = {
         'Periodo': ['1 día', '7 días', '30 días', '60 días', '90 días', '120 días', 'Mayor a 120 días'],
-        'Conversión (%)': [conversion_1d, conversion_7d, conversion_30d,  conversion_60d,  conversion_90d, conversion_120d, converted_mayor_120d]
+        'Conversión (%)': [
+            df_first_txn['converted_1d'].sum() / total_users * 100,
+            df_first_txn['converted_7d'].sum() / total_users * 100,
+            df_first_txn['converted_30d'].sum() / total_users * 100,
+            df_first_txn['converted_60d'].sum() / total_users * 100,
+            df_first_txn['converted_90d'].sum() / total_users * 100,
+            df_first_txn['converted_120d'].sum() / total_users * 100,
+            df_first_txn['converted_mayor_120d'].sum() / total_users * 100
+        ]
     }
 
-    fig_1_7_30 = px.bar(
+    # 8) Graficar el histograma
+    fig_histograma_conversion = px.bar(
         conversion_data,
         x='Periodo',
         y='Conversión (%)',
         text='Conversión (%)',
         color='Periodo',
-        color_discrete_sequence=px.colors.qualitative.Set2
+        color_discrete_sequence=px.colors.qualitative.Set2,
+        labels={'Periodo': 'Rango de días', 'Conversión (%)': 'Conversión (%)'}
     )
 
-    fig_1_7_30.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
-    fig_1_7_30.update_layout(yaxis_range=[0, 100])
-
-    return fig_1_7_30
-
+    fig_histograma_conversion.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
+    fig_histograma_conversion.update_layout(yaxis_range=[0, 100])
+    return fig_histograma_conversion
 
 def retencion_conversion(df):
 
-    fig, df_merged_dias = primera_transaccion(df)
-    fig_1_7_30 = transaction_1_7_30(df)
+    fig = primera_transaccion(df)
+    fig_histograma_conversion = transaction_1_7_30(df)
 
     col1, col2 = st.columns(2)
+
+    # [col1] = st.columns(1)
 
     with col1:
         # Histograma
@@ -163,8 +158,8 @@ def retencion_conversion(df):
     with col2:
         # bar
         st.subheader('% de usuarios que convierten en 1, 7 y 30 días')
-        fig2 = nuevos_x_activos(df)
-        st.plotly_chart(fig_1_7_30, use_container_width=True)
+        # fig2 = nuevos_x_activos(df)
+        st.plotly_chart(fig_histograma_conversion, use_container_width=True)
 
 
     

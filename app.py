@@ -9,7 +9,7 @@ from sections.churn import churn
 
 from utils.style_loader import load_css
 from utils.load_data import load_or_download_df
-from utils.load_data import load_df_resumen_general, load_df_retencion_cohortes
+from utils.load_data import load_df_resumen_general, load_df_retencion_cohortes, load_df_perfil_usuario, load_df_retencion_conversion, load_df_churn
 
 from components.render_tabs import render_tabs
 from components.render_filters import render_filters
@@ -27,24 +27,24 @@ load_css("styles/metric.css")
 load_css("styles/sidebar.css")
 
 # URL de tu archivo en Google Drive
-gdrive_url = "https://drive.google.com/uc?id=1pmbNwVEDxSHHeiV-FZBMVXs6MCRjPRix"
+# gdrive_url = "https://drive.google.com/uc?id=1pmbNwVEDxSHHeiV-FZBMVXs6MCRjPRix"
 # gdrive_url = "https://drive.google.com/uc?id=1CYXR-ZTiIPA7kAovLYNgkXj5AoVjAfEd"
 
 
 # Llama la función que descarga y carga el DataFrame
-try:
-    df = load_or_download_df(gdrive_url)
-    # st.success("Datos cargados exitosamente.")
-    # st.write("Vista previa del DataFrame:", df.head(), df.shape)
-except RuntimeError as e:
-    st.error(str(e))
-    st.stop()
+# try:
+#     df = load_or_download_df(gdrive_url)
+#     # st.success("Datos cargados exitosamente.")
+#     # st.write("Vista previa del DataFrame:", df.head(), df.shape)
+# except RuntimeError as e:
+#     st.error(str(e))
+#     st.stop()
 
 # titulo
 st.title("Neo Bank")
 
-# Filtros
-df_filtrado = render_filters(df)
+# # Filtros
+# df_filtrado = render_filters(df)
 
 
 tab1, tab2, tab3, tab4, tab5 = render_tabs()
@@ -58,24 +58,17 @@ with tab1:
 
 with tab2:
     st.header("👥 Perfiles de usuario y uso del producto")
-    df_perfil = df_filtrado[[
-        'user_id', 'plan', 'converted', 'age_group', 'num_transactions',
-        'country', 'lat', 'lon', 'city', 'channel', 'brand_device',
-        'user_settings_crypto_unlocked'
-    ]].copy()
+    df_perfil = load_df_perfil_usuario()
     perfil_usuario(df_perfil)
 
 with tab3:
     st.header("📊 Retención y conversión de usuarios")
-    df_retencion = df_filtrado[['user_id', 'create_date_user', 'create_date_transaction']].copy()
+    df_retencion = load_df_retencion_conversion()
     retencion_conversion(df_retencion)
 
 with tab4:
     st.header("⚠️ Identificación de churn")
-    df_churn = df_filtrado[[
-        'user_id', 'converted', 'has_notification', 'has_transaction',
-        'churned', 'channel', 'plan', 'age_group'
-    ]].copy()
+    df_churn = load_df_churn()
     churn(df_churn)
 
 with tab5:
