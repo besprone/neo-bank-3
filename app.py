@@ -8,12 +8,10 @@ from sections.churn import churn
 # from sections.prediccion_form import prediccion_form
 
 from utils.style_loader import load_css
-from utils.load_data import load_or_download_df
 from utils.load_data import load_df_resumen_general, load_df_retencion_cohortes, load_df_perfil_usuario, load_df_retencion_conversion, load_df_churn
 
 from components.render_tabs import render_tabs
 from components.render_filters import render_filters
-
 
 st.set_page_config(
     page_title="Neo Bank - Overview",
@@ -26,26 +24,11 @@ load_css("styles/tabs.css")
 load_css("styles/metric.css")
 load_css("styles/sidebar.css")
 
-# URL de tu archivo en Google Drive
-# gdrive_url = "https://drive.google.com/uc?id=1pmbNwVEDxSHHeiV-FZBMVXs6MCRjPRix"
-# gdrive_url = "https://drive.google.com/uc?id=1CYXR-ZTiIPA7kAovLYNgkXj5AoVjAfEd"
-
-
-# Llama la función que descarga y carga el DataFrame
-# try:
-#     df = load_or_download_df(gdrive_url)
-#     # st.success("Datos cargados exitosamente.")
-#     # st.write("Vista previa del DataFrame:", df.head(), df.shape)
-# except RuntimeError as e:
-#     st.error(str(e))
-#     st.stop()
-
 # titulo
 st.title("Neo Bank")
 
 # # Filtros
 # df_filtrado = render_filters(df)
-
 
 tab1, tab2, tab3, tab4, tab5 = render_tabs()
 
@@ -75,9 +58,3 @@ with tab5:
     # Predicción
     st.header("🔮 Simulación de predicción de churn")
     # prediccion_form()
-
-"""
-# Churn
-st.header("⚠️ Identificación de churn")
-churn(df_filtrado)
-"""
