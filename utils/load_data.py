@@ -2,6 +2,7 @@ import os
 import gdown
 import pandas as pd
 import streamlit as st
+from google.cloud import bigquery
 
 @st.cache_data  # 👈 esta línea es la clave
 def load_or_download_df(url: str, local_folder: str = "data", filename: str = "df_sample.csv") -> pd.DataFrame:
@@ -31,3 +32,43 @@ def load_or_download_df(url: str, local_folder: str = "data", filename: str = "d
         return df
     except Exception as e:
         raise RuntimeError(f"No se pudo leer el archivo: {e}")
+
+def load_df_resumen_general():
+    client = bigquery.Client()
+    query = """
+        SELECT * FROM `numeric-advice-452700-j9.neo_bank_.resumen_general`
+    """
+    df = client.query(query).to_dataframe()
+    return df
+
+def load_df_retencion_cohortes():
+    client = bigquery.Client()
+    query = """
+        SELECT * FROM `numeric-advice-452700-j9.neo_bank_.retencion_cohortes`
+    """
+    df = client.query(query).to_dataframe()
+    return df
+
+def load_df_perfil_usuario():
+    client = bigquery.Client()
+    query = """
+        SELECT * FROM `numeric-advice-452700-j9.neo_bank_.perfil_usuario`
+    """
+    df = client.query(query).to_dataframe()
+    return df
+
+def load_df_retencion_conversion():
+    client = bigquery.Client()
+    query = """
+        SELECT * FROM `numeric-advice-452700-j9.neo_bank_.retencion_conversion`
+    """
+    df = client.query(query).to_dataframe()
+    return df
+
+def load_df_churn():
+    client = bigquery.Client()
+    query = """
+        SELECT * FROM `numeric-advice-452700-j9.neo_bank_.churn`
+    """
+    df = client.query(query).to_dataframe()
+    return df
