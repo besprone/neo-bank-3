@@ -7,3 +7,5 @@ gdown
 google-cloud-bigquery
 pyarrow
 db-dtypes
+folium
+streamlit-folium

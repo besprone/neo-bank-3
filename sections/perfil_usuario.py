@@ -1,35 +1,48 @@
 import streamlit as st
-import pandas as pd
 import plotly.express as px
 import pydeck as pdk
+import folium
+from streamlit_folium import st_folium
 
 def plan(df):
     df_unicos = df.drop_duplicates(subset='user_id')
+
     df_planes = df_unicos[df_unicos['plan'].notna() & (df_unicos['plan'] != '')]
     distribucion_planes = df_planes['plan'].value_counts().reset_index()
     distribucion_planes.columns = ['plan', 'usuarios']
+
     fig_plan = px.bar(
-        distribucion_planes, x='plan', y='usuarios',
-        color='plan', text='usuarios',
-        color_discrete_sequence=px.colors.qualitative.Set2
+        distribucion_planes, 
+        x='plan', 
+        y='usuarios',
+        color='usuarios', 
+        text='usuarios',
+        color_continuous_scale='Tealgrn'
     )
+
     fig_plan.update_traces(textposition='outside')
     fig_plan.update_layout(xaxis_title='Plan', yaxis_title='Número de usuarios')
+
     return fig_plan
 
 def distribucion_por_edad(df):
     df_edad = df[df['age_group'].notna()]
+
     edad_grouped = (
         df_edad.groupby('age_group')['user_id']
         .nunique().reset_index().rename(columns={'user_id': 'usuarios'})
         .sort_values(by='usuarios', ascending=False)
     )
     fig_edad = px.bar(
-        edad_grouped, x='age_group', y='usuarios', color='age_group',
+        edad_grouped, 
+        x='age_group',
+        y='usuarios', 
+        color="usuarios",
         labels={'age_group': 'Grupo de edad', 'usuarios': 'Usuarios'},
-        color_discrete_sequence=px.colors.sequential.Sunset, text='usuarios'
+        color_continuous_scale='Tealgrn'
     )
     return fig_edad
+
 
 def mapa_usuarios_por_pais(df):
     # 1) Filtrar registros válidos con lat/lon y country_name no nulos
@@ -48,34 +61,25 @@ def mapa_usuarios_por_pais(df):
         .sort_values('usuarios', ascending=False)
     )
 
-    # 3) Configurar capa de puntos
-    layer = pdk.Layer(
-        "ScatterplotLayer",
-        data=usuarios_pais_mapa,
-        get_position='[lon, lat]',
-        get_radius='usuarios * 70',
-        get_fill_color='[0, 100, 250, 150]',
-        pickable=True,
-        tooltip=True,
-    )
+    # 3) Centrar el mapa en el promedio de coordenadas
+    center_lat = usuarios_pais_mapa['lat'].mean()
+    center_lon = usuarios_pais_mapa['lon'].mean()
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=2, control_scale=True)
 
-    # 4) Configurar vista inicial
-    view_state = pdk.ViewState(
-        latitude=usuarios_pais_mapa['lat'].mean(),
-        longitude=usuarios_pais_mapa['lon'].mean(),
-        zoom=2,
-        pitch=0
-    )
+    # 4) Agregar puntos al mapa
+    for _, row in usuarios_pais_mapa.iterrows():
+        folium.CircleMarker(
+            location=[row['lat'], row['lon']],
+            radius=row['usuarios'] ** 0.3,  # tamaño relativo
+            color="#00809A",
+            fill=True,
+            fill_opacity=0.6,
+            popup=f"{row['country_name']}: {row['usuarios']} usuarios",
+            title="Usuarios por país"
+        ).add_to(m)
 
-    # 5) Crear mapa
-    mapa = pdk.Deck(
-        map_style='mapbox://styles/mapbox/dark-v10',
-        initial_view_state=view_state,
-        layers=[layer],
-        tooltip={"text": "{country_name}: {usuarios} usuarios"}
-    )
-
-    return mapa
+    # 5) Mostrar el mapa en Streamlit
+    st_folium(m, height=400)
 
 def distribucion_ciudad(df):
     usuarios_por_ciudad = (
@@ -100,7 +104,7 @@ def canal(df):
     fig_canal = px.bar(
         usuarios_por_canal, x='channel', y='usuarios', color='usuarios',
         labels={'channel': 'Canal de adquisición', 'usuarios': 'Usuarios'},
-        color_continuous_scale='burgyl', text='usuarios'
+        color_continuous_scale='Tealgrn', text='usuarios'
     )
     return fig_canal
 
@@ -113,7 +117,7 @@ def devices(df):
     fig_devices = px.bar(
         usuarios_por_dispositivo, x='brand_device', y='usuarios',
         labels={'usuarios': 'Usuarios únicos', 'brand_device': 'Dispositivo'},
-        color='usuarios', color_continuous_scale='darkmint', text='usuarios'
+        color='usuarios', color_continuous_scale='Tealgrn', text='usuarios'
     )
     return fig_devices
 
@@ -137,15 +141,14 @@ def transacciones_por_segmento(df):
         y='num_transactions',
         labels={'age_group': 'Grupo de edad', 'num_transactions': 'Total de transacciones'},
         color='num_transactions',
-        color_continuous_scale='viridis',
+        color_continuous_scale='Tealgrn',
         text='num_transactions'
     )
 
     fig_txn_segmento.update_traces(textposition='outside')
     fig_txn_segmento.update_layout(
         xaxis_title='Grupo de edad',
-        yaxis_title='Total de transacciones',
-        title='Total de transacciones por grupo de edad'
+        yaxis_title='Total de transacciones'
     )
 
     return fig_txn_segmento
@@ -158,7 +161,7 @@ def conversion_segmento(df):
     fig_conversion_segmento = px.bar(
         conversion_por_plan, x='plan', y='conversion_rate',
         labels={'conversion_rate': '% de conversión', 'plan': 'Tipo de plan'},
-        text='conversion_rate', color='conversion_rate', color_continuous_scale='gnbu'
+        text='conversion_rate', color='conversion_rate', color_continuous_scale='Tealgrn'
     )
     return fig_conversion_segmento
 
@@ -168,16 +171,21 @@ def uso_crypto(df):
     uso_crypto['Crypto habilitado'] = uso_crypto['Crypto habilitado'].map({
         'True': 'Sí', 'False': 'No', True: 'Sí', False: 'No'
     })
+
     fig_crypto = px.pie(
-        uso_crypto, values='Usuarios únicos', names='Crypto habilitado',
-        color_discrete_sequence=px.colors.sequential.RdBu
+        uso_crypto,
+        values='Usuarios únicos',
+        names='Crypto habilitado',
+        color_discrete_sequence=px.colors.sequential.Tealgrn,  # usa Tealgrn como lista discreta
+        hole=0.4
     )
     return fig_crypto
+
 
 def perfil_usuario(df):
     fig_plan = plan(df)
     fig_edad = distribucion_por_edad(df)
-    chart = mapa_usuarios_por_pais(df)
+    # chart = mapa_usuarios_por_pais(df)
     fig_ciudad = distribucion_ciudad(df)
     fig_canal = canal(df)
     fig_devices = devices(df)
@@ -192,34 +200,34 @@ def perfil_usuario(df):
 
     with col1:
         with col1_1:
-            st.subheader('Usuarios por plan')
+            st.markdown('Usuarios por plan')
             st.plotly_chart(fig_plan, use_container_width=True)
         with col1_2:
-            st.subheader('Grupo de edad')
+            st.markdown('Grupo de edad')
             st.plotly_chart(fig_edad, use_container_width=True)
         with col1_3:
-            st.subheader("Usuarios por país")
-            st.pydeck_chart(chart, use_container_width=True)
+            st.markdown("Usuarios por país")
+            mapa_usuarios_por_pais(df)
 
 
     with col2:
         with col2_1:
-            st.subheader('Top 20 ciudades con más usuarios')
+            st.markdown('Top 20 ciudades con más usuarios')
             st.plotly_chart(fig_ciudad, use_container_width=True)
         with col2_2:
-            st.subheader('Usuarios por canal')
+            st.markdown('Usuarios por canal')
             st.plotly_chart(fig_canal, use_container_width=True)
         with col2_3:
-            st.subheader('Usuarios por tipo de dispositivo')
+            st.markdown('Usuarios por tipo de dispositivo')
             st.plotly_chart(fig_devices, use_container_width=True)
 
     with col3:
         with col3_1:
-            st.subheader('Transacciones por grupo de edad')
+            st.markdown('Transacciones por grupo de edad')
             st.plotly_chart(fig_txn_segmento, use_container_width=True)
         with col3_2:
-            st.subheader('% de conversión por tipo de plan')
+            st.markdown('% de conversión por tipo de plan')
             st.plotly_chart(fig_conversion_segmento, use_container_width=True)
         with col3_3:
-            st.subheader('Funcionalidad cripto activada')
+            st.markdown('Funcionalidad cripto activada')
             st.plotly_chart(fig_crypto, use_container_width=True)

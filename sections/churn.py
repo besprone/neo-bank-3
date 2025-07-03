@@ -37,7 +37,7 @@ def churned_distribucion(df, distribucion):
         x=distribucion,
         y='usuarios',
         color='Estado',
-        barmode='stack',
+        # barmode='stack',
         color_discrete_map={
             'Churned': px.colors.qualitative.Set1[0],     # rojo de Set1
             'No Churned': px.colors.qualitative.Set1[1],  # azul de Set1
@@ -57,14 +57,14 @@ def analisis_inactividad(df, distribucion):
     usuarios_activos = df[df['has_transaction'] == True]
     usuarios_inactivos = df[df['has_transaction'] == False]
 
-    # Agrupar activos por canal
+    # Agrupar activos
     activos = (
         usuarios_activos.groupby(distribucion)['user_id']
         .nunique()
         .reset_index(name='usuarios_activos')
     )
 
-    # Agrupar inactivos por canal
+    # Agrupar inactivos
     inactivos = (
         usuarios_inactivos.groupby(distribucion)['user_id']
         .nunique()
@@ -74,7 +74,11 @@ def analisis_inactividad(df, distribucion):
     # Unir ambos
     comparacion = activos.merge(inactivos, on=distribucion, how='outer').fillna(0)
 
-    # Calcular total y ordenar por mayor total
+    # Asegurar tipos numéricos correctos
+    comparacion['usuarios_activos'] = comparacion['usuarios_activos'].astype(int)
+    comparacion['usuarios_inactivos'] = comparacion['usuarios_inactivos'].astype(int)
+
+    # Calcular total y ordenar
     comparacion['total'] = comparacion['usuarios_activos'] + comparacion['usuarios_inactivos']
     comparacion = comparacion.sort_values('total', ascending=False)
 
@@ -83,15 +87,18 @@ def analisis_inactividad(df, distribucion):
         comparacion,
         x=distribucion,
         y=['usuarios_inactivos', 'usuarios_activos'],
-        barmode='stack',
         labels={'value': 'Usuarios', 'variable': 'Estado'},
-        color_discrete_sequence=px.colors.qualitative.Set1,
-        text_auto=True
+        text_auto=True,
+        color_discrete_sequence=px.colors.qualitative.Set1
     )
 
-    fig_activos_inactivos.update_layout(yaxis_title='Número de usuarios')
+    fig_activos_inactivos.update_layout(
+        barmode='stack',
+        yaxis_title='Número de usuarios'
+    )
 
     return fig_activos_inactivos, f'Usuarios activos vs. inactivos ({distribucion})'
+
 
 def convirtieron_no_conviertieron(df, distribucion):
     # Filtrar solo usuarios notificados
@@ -121,12 +128,14 @@ def convirtieron_no_conviertieron(df, distribucion):
         x=distribucion,
         y=['No_convirtieron', 'Convirtieron'],
         labels={'value': 'Usuarios', 'variable': 'Estado'},
-        barmode='stack',
         color_discrete_sequence=px.colors.qualitative.Set1,
         text_auto=True,
     )
 
-    fig_convirtieron_no_convirtieron.update_layout(yaxis_title='Número de usuarios')
+    fig_convirtieron_no_convirtieron.update_layout(
+        yaxis_title='Número de usuarios',
+        barmode='stack'
+    )
 
     return fig_convirtieron_no_convirtieron, f'Usuarios notificados: Convirtieron vs. No Convirtieron ({distribucion})'
 
@@ -155,40 +164,40 @@ def churn(df):
     with col1:
         with col1_1:
             # Pie
-            st.subheader(title_channel)
+            st.markdown(title_channel)
             st.plotly_chart(fig_convirtieron_no_conviertieron_canal, use_container_width=True)
         with col1_2:
             # bar
-            st.subheader(title_plan)
+            st.markdown(title_plan)
             st.plotly_chart(fig_convirtieron_no_conviertieron_plan, use_container_width=True)
         with col1_3:
             # bar
-            st.subheader(title_age_group)
+            st.markdown(title_age_group)
             st.plotly_chart(fig_convirtieron_no_conviertieron_age_group, use_container_width=True)
     with col2:
         with col2_1: 
             # Pie
-            st.subheader(title_activos_inactivos_channel)
+            st.markdown(title_activos_inactivos_channel)
             st.plotly_chart(fig_activos_inactivos_channel, use_container_width=True)
         with col2_2: 
             # Pie
-            st.subheader(title_activos_inactivos_plan)
+            st.markdown(title_activos_inactivos_plan)
             st.plotly_chart(fig_activos_inactivos_plan, use_container_width=True)
         with col2_3: 
             # Pie
-            st.subheader(title_activos_inactivos_age_group)
+            st.markdown(title_activos_inactivos_age_group)
             st.plotly_chart(fig_activos_inactivos_age_group, use_container_width=True)
         
     with col3:
         with col3_1: 
             # Pie
-            st.subheader(title_churn_channel)
+            st.markdown(title_churn_channel)
             st.plotly_chart(fig_churn_channel, use_container_width=True)
         with col3_2: 
             # Pie
-            st.subheader(title_churn_plan)
+            st.markdown(title_churn_plan)
             st.plotly_chart(fig_churn_plan, use_container_width=True)
         with col3_3: 
             # Pie
-            st.subheader(title_churn_age_group)
+            st.markdown(title_churn_age_group)
             st.plotly_chart(fig_churn_age_group, use_container_width=True)

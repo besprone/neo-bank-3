@@ -63,6 +63,7 @@ def evoluacion_usuarios(df):
         x='semana',
         y=['usuarios_nuevos', 'usuarios_activos'],
         labels={'value': 'Cantidad de usuarios', 'variable': 'Tipo de usuario', 'semana': 'Semana'},
+        color_discrete_sequence=px.colors.sequential.Tealgrn
     )
     fig_evoluacion.update_layout(xaxis=dict(tickformat='%Y-%m-%d'))
     return fig_evoluacion
@@ -82,7 +83,7 @@ def curva_retencion(df_retencion_cohortes):
     fig_matrix = px.imshow(
         retention_rate,
         labels=dict(x='Semanas desde registro', y='Cohorte de registro', color='Tasa de retención'),
-        color_continuous_scale='Agsunset'
+        color_continuous_scale='Tealgrn'
     )
     return fig_matrix
 
@@ -99,7 +100,7 @@ def churned(df):
         names='Estado',
         values='usuarios',
         color='Estado',
-        color_discrete_map={'Churned': '#FF6F61', 'No Churned': '#6BA292'},
+        color_discrete_sequence=px.colors.sequential.Tealgrn,
         hole=0.4
     )
     fig_churn.update_traces(textinfo='percent+label')
@@ -130,11 +131,11 @@ def resumen_general(df, df_retencion_cohortes):
 
     with col2:
         with col2_1:
-            st.subheader('Evolución semanal de usuarios nuevos vs. activos')
+            st.markdown('Evolución semanal de usuarios nuevos vs. activos')
             st.plotly_chart(evoluacion_usuarios_, use_container_width=True)
         with col2_2:
-            st.subheader('Curva de retención por cohortes semanales')
+            st.markdown('Curva de retención por cohortes semanales')
             st.plotly_chart(fig_matrix, use_container_width=True)
         with col2_3:
-            st.subheader('Usuarios churned vs. no churned')
+            st.markdown('Usuarios churned vs. no churned')
             st.plotly_chart(fig_churn, use_container_width=True)

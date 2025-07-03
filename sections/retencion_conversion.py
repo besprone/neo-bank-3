@@ -13,7 +13,7 @@ def primera_transaccion(df):
         x='dias_a_primera_txn',
         nbins=100,
         labels={'dias_a_primera_txn': 'Días hasta la primera transacción'},
-        color_discrete_sequence=['#3BAEDA']
+        color_discrete_sequence=px.colors.sequential.Tealgrn  # usa la lista, no string
     )
 
     fig_dias.update_layout(
@@ -23,6 +23,7 @@ def primera_transaccion(df):
     )
 
     return fig_dias
+
 
 def usuarios_convierten_1_7_30(df_merged_dias):
     # Filtrar usuarios que sí hicieron transacción (días no nulos)
@@ -76,6 +77,8 @@ def nuevos_x_activos(df):
                 x='semana',
                 y='cantidad',
                 color='tipo_usuario',
+                text='tipo_usuario',
+                color_continuous_scale='Tealgrn',
                 markers=True
                 )
 
@@ -132,8 +135,8 @@ def transaction_1_7_30(df):
         x='Periodo',
         y='Conversión (%)',
         text='Conversión (%)',
-        color='Periodo',
-        color_discrete_sequence=px.colors.qualitative.Set2,
+        color='Conversión (%)',
+        color_continuous_scale='Tealgrn',
         labels={'Periodo': 'Rango de días', 'Conversión (%)': 'Conversión (%)'}
     )
 
@@ -152,12 +155,12 @@ def retencion_conversion(df):
 
     with col1:
         # Histograma
-        st.subheader('Días hasta la primera transacción')
+        st.markdown('Días hasta la primera transacción')
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
         # bar
-        st.subheader('% de usuarios que convierten en 1, 7 y 30 días')
+        st.markdown('% de usuarios que convierten en 1, 7 y 30 días')
         # fig2 = nuevos_x_activos(df)
         st.plotly_chart(fig_histograma_conversion, use_container_width=True)
 
