@@ -9,3 +9,4 @@ pyarrow
 db-dtypes
 folium
 streamlit-folium
+matplotlib

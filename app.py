@@ -5,7 +5,7 @@ from sections.retencion_conversion import retencion_conversion
 from sections.resumen_general import resumen_general
 from sections.perfil_usuario import perfil_usuario
 from sections.churn import churn
-# from sections.prediccion_form import prediccion_form
+from sections.prediccion_form import prediccion_form
 
 from utils.style_loader import load_css
 from utils.load_data import load_df_resumen_general, load_df_retencion_cohortes, load_df_perfil_usuario, load_df_retencion_conversion, load_df_churn
@@ -55,6 +55,6 @@ with tab4:
     churn(df_churn)
 
 with tab5:
-    # Predicción
-    st.header("🔮 Simulación de predicción de churn")
-    # prediccion_form()
+    st.markdown("<h2 style='text-align: center;'>🔮 Simulación de predicción de churn</h2>", unsafe_allow_html=True)
+    prediccion_form()
+
