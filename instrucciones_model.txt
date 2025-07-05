@@ -1,0 +1,22 @@
+3️⃣ Usar el modelo para predicciones nuevas
+Por ejemplo, en un nuevo usuario configurado desde tu formulario de Streamlit:
+
+# Ejemplo con un nuevo registro en un DataFrame
+
+nuevo_usuario = pd.DataFrame([{
+    'birth_year': 1990,
+    'country': 'Mexico',
+    'city': 'Mexico City',
+    # ... incluye todos los features esperados
+}])
+
+# Predicción
+
+prediccion = modelo_final.predict(nuevo_usuario)
+
+# Cargar el modelo entrenado desde models
+modelo_cargado = joblib.load('models/modelo_churn.pkl')
+
+
+print("¿Churn esperado?:", prediccion[0])
+

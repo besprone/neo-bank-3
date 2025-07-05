@@ -5,6 +5,8 @@ import folium
 from streamlit_folium import st_folium
 
 def plan(df):
+
+    # st.write(df)
     df_unicos = df.drop_duplicates(subset='user_id')
 
     df_planes = df_unicos[df_unicos['plan'].notna() & (df_unicos['plan'] != '')]

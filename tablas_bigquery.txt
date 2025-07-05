@@ -1,0 +1,50 @@
+Tabla: devices
+------------------------
+Field name      | Type   | Mode
+--------------- | ------ | -------
+string_field_0  | STRING | NULLABLE
+string_field_1  | STRING | NULLABLE
+
+Tabla: notifications
+------------------------
+Field name     | Type      | Mode
+-------------- | --------- | -------
+reason         | STRING    | NULLABLE
+channel        | STRING    | NULLABLE
+status         | STRING    | NULLABLE
+user_id        | STRING    | NULLABLE
+created_date   | TIMESTAMP | NULLABLE
+
+Tabla: transactions
+------------------------
+Field name              | Type      | Mode
+----------------------- | --------- | -------
+transaction_id          | STRING    | NULLABLE
+transactions_type       | STRING    | NULLABLE
+transactions_currency   | STRING    | NULLABLE
+amount_usd              | FLOAT     | NULLABLE
+transactions_state      | STRING    | NULLABLE
+ea_cardholderpresence   | STRING    | NULLABLE
+ea_merchant_mcc         | FLOAT     | NULLABLE
+ea_merchant_city        | STRING    | NULLABLE
+ea_merchant_country     | STRING    | NULLABLE
+direction               | STRING    | NULLABLE
+user_id                 | STRING    | NULLABLE
+created_date            | TIMESTAMP | NULLABLE
+
+Tabla: users
+------------------------
+Field name                               | Type      | Mode
+---------------------------------------- | --------- | -------
+user_id                                  | STRING    | NULLABLE
+birth_year                               | INTEGER   | NULLABLE
+country                                  | STRING    | NULLABLE
+city                                     | STRING    | NULLABLE
+created_date                             | TIMESTAMP | NULLABLE
+user_settings_crypto_unlocked            | INTEGER   | NULLABLE
+plan                                     | STRING    | NULLABLE
+attributes_notifications_marketing_push  | FLOAT     | NULLABLE
+attributes_notifications_marketing_email | FLOAT     | NULLABLE
+num_contacts                             | INTEGER   | NULLABLE
+num_referrals                            | INTEGER   | NULLABLE
+num_successful_referrals                 | INTEGER   | NULLABLE
