@@ -33,7 +33,7 @@ def churned_distribucion(df, distribucion):
 
     # 5) Graficar barras apiladas con orden correcto y colores Set1
     fig_churn = px.bar(
-        churn_by_plan.sort_values([distribucion, 'Estado']),
+        churn_by_plan.sort_values([distribucion, 'Estado']).head(10),
         x=distribucion,
         y='usuarios',
         color='Estado',
@@ -83,7 +83,7 @@ def analisis_inactividad(df, distribucion):
 
     # Graficar apilada
     fig_activos_inactivos = px.bar(
-        comparacion,
+        comparacion.head(10),
         x=distribucion,
         y=['usuarios_inactivos', 'usuarios_activos'],
         labels={'value': 'Usuarios', 'variable': 'Estado'},
@@ -126,7 +126,7 @@ def convirtieron_no_conviertieron(df, distribucion):
 
     # Crear gráfico
     fig_convirtieron_no_convirtieron = px.bar(
-        df_grouped,
+        df_grouped.head(10),
         x=distribucion,
         y=['No_convirtieron', 'Convirtieron'],
         labels={'value': 'Usuarios', 'variable': 'Estado'},
