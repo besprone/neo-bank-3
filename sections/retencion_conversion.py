@@ -7,13 +7,17 @@ def primera_transaccion(df):
     # Filtrar registros válidos
     df_valid = df.dropna(subset=['dias_a_primera_txn'])
 
-    # Crear histograma
+    # Limitar a usuarios con <= 100 días a la primera transacción
+    df_filtrado = df_valid[df_valid['dias_a_primera_txn'] <= 60]
+
+    # Crear histograma con texto automático en las barras
     fig_dias = px.histogram(
-        df_valid,
+        df_filtrado,
         x='dias_a_primera_txn',
-        nbins=100,
+        nbins=60,
         labels={'dias_a_primera_txn': 'Días hasta la primera transacción'},
-        color_discrete_sequence=px.colors.sequential.Tealgrn  # usa la lista, no string
+        color_discrete_sequence=px.colors.sequential.Tealgrn,
+        text_auto=True  # <<--- Esta línea agrega el número de usuarios
     )
 
     fig_dias.update_layout(
@@ -23,7 +27,6 @@ def primera_transaccion(df):
     )
 
     return fig_dias
-
 
 def usuarios_convierten_1_7_30(df_merged_dias):
     # Filtrar usuarios que sí hicieron transacción (días no nulos)

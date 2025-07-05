@@ -183,6 +183,125 @@ def uso_crypto(df):
     )
     return fig_crypto
 
+def usuarios_por_mcc(df):
+    # Agrupa usuarios únicos por descripción del MCC
+    usuarios_mcc = (
+        df[df['mcc_description'].notna()]
+        .groupby('mcc_description')['user_id']
+        .nunique()
+        .reset_index()
+        .rename(columns={'user_id': 'usuarios'})
+        .sort_values(by='usuarios', ascending=False)
+    )
+
+    # Quedarse solo con los top 20 para que la gráfica sea legible
+    top_mcc = usuarios_mcc.head(20)
+
+    fig_mcc = px.bar(
+        top_mcc,
+        x='usuarios',
+        y='mcc_description',
+        orientation='h',
+        labels={'usuarios': 'Usuarios únicos', 'mcc_description': 'Categoría MCC'},
+        text='usuarios',
+        color='usuarios',
+        color_continuous_scale='Tealgrn'
+    )
+
+    fig_mcc.update_traces(textposition='outside')
+    fig_mcc.update_layout(
+        xaxis_title='Número de usuarios',
+        yaxis_title='Categoría MCC',
+    )
+
+    return fig_mcc
+
+def grupo_edad_por_mcc(df):
+    usuarios_mcc_age = (
+        df[df['mcc_description'].notna() & df['age_group'].notna()]
+        .groupby(['mcc_description', 'age_group'])['user_id']
+        .nunique()
+        .reset_index()
+        .rename(columns={'user_id': 'usuarios'})
+    )
+    
+    top_mccs = (
+        usuarios_mcc_age.groupby('mcc_description')['usuarios']
+        .sum()
+        .sort_values(ascending=False)
+        .head(20)
+        .index.tolist()
+    )
+
+    df_top_mcc_age = usuarios_mcc_age[usuarios_mcc_age['mcc_description'].isin(top_mccs)]
+
+    fig_mcc_age = px.bar(
+        df_top_mcc_age,
+        x='mcc_description',
+        y='usuarios',
+        color='age_group',
+        labels={
+            'usuarios': 'Usuarios únicos',
+            'mcc_description': 'Categoría MCC',
+            'age_group': 'Grupo de edad'
+        },
+        text='usuarios',
+        color_discrete_sequence=px.colors.qualitative.Set2
+    )
+
+    fig_mcc_age.update_traces(textposition='inside', texttemplate='%{text}')
+    fig_mcc_age.update_layout(
+        xaxis_title='Categoría MCC',
+        yaxis_title='Número de usuarios',
+        barmode='stack',  # importante para que sea apilada
+        xaxis_tickangle=-45
+    )
+
+    return fig_mcc_age
+
+def plan_por_mcc(df):
+
+    usuarios_mcc_plan = (
+        df[df['mcc_description'].notna() & df['plan'].notna()]
+        .groupby(['mcc_description', 'plan'])['user_id']
+        .nunique()
+        .reset_index()
+        .rename(columns={'user_id': 'usuarios'})
+    )
+
+    top_mccs = (
+        usuarios_mcc_plan.groupby('mcc_description')['usuarios']
+        .sum()
+        .sort_values(ascending=False)
+        .head(20)
+        .index.tolist()
+    )
+
+    df_top_mcc_plan = usuarios_mcc_plan[usuarios_mcc_plan['mcc_description'].isin(top_mccs)]
+    
+    fig_mcc_plan = px.bar(
+        df_top_mcc_plan,
+        x='mcc_description',
+        y='usuarios',
+        color='plan',
+        labels={
+            'usuarios': 'Usuarios únicos',
+            'mcc_description': 'Categoría MCC',
+            'plan': 'Plan'
+        },
+        text='usuarios',
+        color_discrete_sequence=px.colors.qualitative.Set2
+    )
+
+    fig_mcc_plan.update_traces(textposition='inside', texttemplate='%{text}')
+    fig_mcc_plan.update_layout(
+        xaxis_title='Categoría MCC',
+        yaxis_title='Número de usuarios',
+        barmode='stack',
+        xaxis_tickangle=-45
+    )
+
+    return fig_mcc_plan
 
 def perfil_usuario(df):
     fig_plan = plan(df)
@@ -194,11 +313,17 @@ def perfil_usuario(df):
     fig_txn_segmento = transacciones_por_segmento(df)
     fig_conversion_segmento = conversion_segmento(df)
     fig_crypto = uso_crypto(df)
+    fig_mcc = usuarios_por_mcc(df)
+    fig_mcc_age = grupo_edad_por_mcc(df)
+    fig_mcc_plan = plan_por_mcc(df)
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
     col1_1, col1_2, col1_3 = st.columns(3)
     col2_1, col2_2, col2_3 = st.columns(3)
     col3_1, col3_2, col3_3 = st.columns(3)
+    [col4_1] = st.columns(1)
+    [col5_1] = st.columns(1)
+    [col6_1] = st.columns(1)
 
     with col1:
         with col1_1:
@@ -233,3 +358,17 @@ def perfil_usuario(df):
         with col3_3:
             st.markdown('Funcionalidad cripto activada')
             st.plotly_chart(fig_crypto, use_container_width=True)
+
+    with col4:
+        with col4_1:
+            st.markdown('Usuarios por Categoría MCC')
+            st.plotly_chart(fig_mcc, use_container_width=True)
+    with col5:
+        with col5_1:
+            st.markdown('Categoría MCC por grupo de edad')
+            st.plotly_chart(fig_mcc_age, use_container_width=True)
+    with col6:
+        with col6_1:
+            st.markdown('Categoría MCC por plan')
+            st.plotly_chart(fig_mcc_plan, use_container_width=True)
+        
