@@ -178,7 +178,7 @@ def uso_crypto(df):
         uso_crypto,
         values='Usuarios únicos',
         names='Crypto habilitado',
-        color_discrete_sequence=px.colors.sequential.Tealgrn,  # usa Tealgrn como lista discreta
+        color_discrete_sequence=["rgb(37, 125, 152)", "rgb(176, 242, 188)"],  # usa Tealgrn como lista discreta
         hole=0.4
     )
     return fig_crypto

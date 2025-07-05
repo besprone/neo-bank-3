@@ -63,9 +63,11 @@ def evoluacion_usuarios(df):
         x='semana',
         y=['usuarios_nuevos', 'usuarios_activos'],
         labels={'value': 'Cantidad de usuarios', 'variable': 'Tipo de usuario', 'semana': 'Semana'},
-        color_discrete_sequence=px.colors.sequential.Tealgrn
+        color_discrete_sequence=["rgb(176, 242, 188)", "rgb(37, 125, 152)"]
     )
+    
     fig_evoluacion.update_layout(xaxis=dict(tickformat='%Y-%m-%d'))
+
     return fig_evoluacion
 
 def curva_retencion(df_retencion_cohortes):
@@ -88,22 +90,26 @@ def curva_retencion(df_retencion_cohortes):
     return fig_matrix
 
 def churned(df):
+
     churn_summary = (
         df.drop_duplicates(subset='user_id')
         .groupby('churned')['user_id']
         .nunique()
         .reset_index(name='usuarios')
     )
+
     churn_summary['Estado'] = churn_summary['churned'].map({True: 'Churned', False: 'No Churned'})
     fig_churn = px.pie(
         churn_summary,
         names='Estado',
         values='usuarios',
         color='Estado',
-        color_discrete_sequence=px.colors.sequential.Tealgrn,
+        color_discrete_sequence=["rgb(176, 242, 188)", "rgb(37, 125, 152)"],
         hole=0.4
     )
+
     fig_churn.update_traces(textinfo='percent+label')
+
     return fig_churn
 
 def resumen_general(df, df_retencion_cohortes):
