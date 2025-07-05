@@ -6,15 +6,23 @@ from utils.load_data import load_unique_options
 modelo = joblib.load('models/modelo_churn.pkl')
 
 def prediccion_form():
-    countries, cities, plans = load_unique_options()
+    countries, plans, country_cities = load_unique_options()
 
     # Layout centrado: 5 columnas
     col1, col2, col3, col4, col5 = st.columns([1, 1, 2, 1, 1])
 
     with col3:
         birth_year = st.number_input("Año de nacimiento", min_value=1900, max_value=2025, value=1990)
+        
         country = st.selectbox("País", sorted(countries))
-        city = st.selectbox("Ciudad", sorted(cities))
+
+        # Filtrar ciudades que correspondan al país seleccionado
+        cities_for_country = country_cities.get(country, [])
+        city = st.selectbox(
+            "Ciudad", 
+            sorted(cities_for_country) if cities_for_country else ["Sin ciudades disponibles"]
+        )
+
         plan = st.selectbox("Plan", sorted(plans))
 
         user_settings_crypto_unlocked = st.radio(
@@ -70,8 +78,6 @@ def prediccion_form():
 
             prediccion = modelo.predict(nuevo_usuario)
             st.success(f"**¿El usuario es churn?:** {'Sí' if prediccion[0] == 1 else 'No'}")
-            # st.rerun()  # Reinicia la app y limpia los campos del formulario
 
-        # Botón para reiniciar el formulario
         if st.button("Resetear formulario"):
             st.rerun()

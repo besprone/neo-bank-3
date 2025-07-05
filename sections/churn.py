@@ -51,11 +51,10 @@ def churned_distribucion(df, distribucion):
 
     return fig_churn, f'Distribución de churned vs. no churned ({distribucion})'
 
-
 def analisis_inactividad(df, distribucion):
-    # Separar usuarios activos e inactivos
-    usuarios_activos = df[df['has_transaction'] == True]
-    usuarios_inactivos = df[df['has_transaction'] == False]
+    # ✅ Usar la columna 'activo' ya calculada en el dataset
+    usuarios_activos = df[df['activo'] == True]
+    usuarios_inactivos = df[df['activo'] == False]
 
     # Agrupar activos
     activos = (
@@ -89,7 +88,10 @@ def analisis_inactividad(df, distribucion):
         y=['usuarios_inactivos', 'usuarios_activos'],
         labels={'value': 'Usuarios', 'variable': 'Estado'},
         text_auto=True,
-        color_discrete_sequence=px.colors.qualitative.Set1
+        color_discrete_map={
+            'usuarios_inactivos': px.colors.qualitative.Set1[0],
+            'usuarios_activos': px.colors.qualitative.Set1[1],
+        }
     )
 
     fig_activos_inactivos.update_layout(
@@ -145,21 +147,24 @@ def churn(df):
     fig_convirtieron_no_conviertieron_canal, title_channel = convirtieron_no_conviertieron(df, 'channel')
     fig_convirtieron_no_conviertieron_plan, title_plan = convirtieron_no_conviertieron(df, 'plan')
     fig_convirtieron_no_conviertieron_age_group, title_age_group = convirtieron_no_conviertieron(df, 'age_group')
+    fig_convirtieron_no_conviertieron_country_name, title_country_name = convirtieron_no_conviertieron(df, 'country_name')
 
     # activos inactivos
     fig_activos_inactivos_age_group, title_activos_inactivos_age_group = analisis_inactividad(df, 'age_group')
     fig_activos_inactivos_plan, title_activos_inactivos_plan= analisis_inactividad(df, 'plan')
     fig_activos_inactivos_channel, title_activos_inactivos_channel= analisis_inactividad(df, 'channel')
+    fig_activos_inactivos_country_name, title_activos_inactivos_country_name= analisis_inactividad(df, 'country_name')
 
     # churn
     fig_churn_channel, title_churn_channel = churned_distribucion(df, 'channel')
     fig_churn_plan, title_churn_plan = churned_distribucion(df, 'plan')
     fig_churn_age_group, title_churn_age_group = churned_distribucion(df, 'age_group')
+    fig_churn_country_name, title_churn_country_name = churned_distribucion(df, 'country_name')
 
     col1, col2, col3 = st.columns(3)
-    col1_1, col1_2, col1_3 = st.columns(3)
-    col2_1, col2_2, col2_3 = st.columns(3)
-    col3_1, col3_2, col3_3 = st.columns(3)
+    col1_1, col1_2, col1_3, col1_4 = st.columns(4)
+    col2_1, col2_2, col2_3, col2_4 = st.columns(4)
+    col3_1, col3_2, col3_3, col3_4 = st.columns(4)
 
     with col1:
         with col1_1:
@@ -174,6 +179,10 @@ def churn(df):
             # bar
             st.markdown(title_age_group)
             st.plotly_chart(fig_convirtieron_no_conviertieron_age_group, use_container_width=True)
+        with col1_4:
+            # bar
+            st.markdown(title_country_name)
+            st.plotly_chart(fig_convirtieron_no_conviertieron_country_name, use_container_width=True)
     with col2:
         with col2_1: 
             # Pie
@@ -187,6 +196,10 @@ def churn(df):
             # Pie
             st.markdown(title_activos_inactivos_age_group)
             st.plotly_chart(fig_activos_inactivos_age_group, use_container_width=True)
+        with col2_4: 
+            # Pie
+            st.markdown(title_activos_inactivos_country_name)
+            st.plotly_chart(fig_activos_inactivos_country_name, use_container_width=True)
         
     with col3:
         with col3_1: 
@@ -201,3 +214,7 @@ def churn(df):
             # Pie
             st.markdown(title_churn_age_group)
             st.plotly_chart(fig_churn_age_group, use_container_width=True)
+        with col3_4: 
+            # Pie
+            st.markdown(title_churn_country_name)
+            st.plotly_chart(fig_churn_country_name, use_container_width=True)
