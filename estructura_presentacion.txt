@@ -1,0 +1,92 @@
+🎨 Slide 1 – Título e introducción
+
+
+Neo Bank: Análisis de retención y engagement
+🔹 “Analizamos el comportamiento de usuarios para entender qué segmentos están más comprometidos y cómo reducir el churn.”
+
+Objetivos del proyecto:
+
+  Analizar retención de usuarios.
+  Identificar patrones de uso y personae.
+  Proponer recomendaciones para reducir churn.
+
+
+🎨 Slide 2 – Principales hallazgos
+
+
+✅ Retención y engagement
+
+Canal: PUSH logra \~95% conversión; EMAIL/SMS \~75-80%.
+Edad: 25-44 años convierten rápido y concentran transacciones diarias.
+Plan: STANDARD tiene mayoría de usuarios y churn; PREMIUM/METAL retienen mejor.
+País: Reino Unido, Polonia y Francia concentran volumen y churn.
+
+✅ Uso y personae
+
+MCC dominantes: retiros de efectivo, restaurantes y supermercados.
+Patrones claros:
+
+  Masivo: STANDARD, consumo diario.
+  Premium: uso más diversificado.
+  Extremos de edad: menor uso y mayor churn.
+
+
+🎨 Slide 3 – Perfiles de usuario clave
+
+
+👤 Perfil 1: Usuario masivo (STANDARD, 25-44)
+
+Alta conversión con PUSH; gasto en supermercados y restaurantes.
+Necesita incentivos en categorías recurrentes.
+
+👤 Perfil 2: Usuario premium (PREMIUM/METAL, 35-54)
+
+Engagement estable, mayor valor por transacción.
+Necesita programas de lealtad exclusivos.
+
+👤 Perfil 3: Usuario de bajo engagement (<25 o >65)
+
+Bajo uso, alta probabilidad de churn.
+Necesita onboarding personalizado y migración a PUSH.
+
+
+🎨 Slide 4 – Recomendaciones clave
+
+
+✅ Canales:
+
+Migrar usuarios de EMAIL/SMS a PUSH.
+
+✅ Planes y MCC:
+
+Incentivar STANDARD con cashback en supermercados/restaurantes.
+Estudiar retiros de efectivo (¿falta aceptación en POS?).
+
+✅ Grupos etarios extremos:
+
+Flujos guiados y comunicación clara para <25 y >65 años.
+
+✅ Geografía:
+
+Priorizar esfuerzos en Reino Unido, Polonia y Francia.
+
+
+🎨 Slide 5 – Demo de predicción & cierre
+
+
+🎯 Demo rápida – GradientBoostingClassifier
+
+Entrenado con variables: canal, edad, plan, país y MCC.
+Muestra predicción en vivo para perfiles con alto y bajo riesgo de churn.
+
+🚀 Conclusión
+
+“Este análisis y modelo permiten enfocar esfuerzos en segmentos clave, reduciendo churn de forma efectiva.”
+
+🙋 “Gracias, estamos listos para resolver dudas o detallar cómo implementar estas acciones.”
+
+
+✅ Notas para la demo en vivo:
+
+Usa 1-2 ejemplos: un usuario masivo STANDARD y uno premium, mostrando la probabilidad de churn.
+Destaca cómo las predicciones cambian si el canal pasa de EMAIL a PUSH.

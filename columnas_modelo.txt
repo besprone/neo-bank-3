@@ -1,0 +1,19 @@
+ 1   birth_year                                                             
+ 5   user_settings_crypto_unlocked                          
+ 6   plan                                                
+ 7   attributes_notifications_marketing_push             
+ 8   attributes_notifications_marketing_email            
+ 9   num_contacts                                           
+ 10  num_referrals                                          
+ 11  num_successful_referrals                               
+ 13  churn                                                  
+ 14  age                                                    
+ 15  antiguedad (número de días de antiguedad de la cuenta)                                       
+ 17  total_transacciones                                 
+ 18  total_monto                                         
+ 19  promedio_monto                                      
+ 20  nb_transacciones_declinadas                         
+ 21  nb_transacciones_reversadas                         
+ 22  nb_transacciones_completadas                        
+ 26  total_notificaciones                                
+ 27  nb_devices        

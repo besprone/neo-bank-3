@@ -1,0 +1,85 @@
+
+✅ Analyze users retention and understand which users are more engaged
+
+Canal: Los usuarios notificados por PUSH siguen mostrando las mejores tasas de conversión (\~95%), lo que confirma que este es el canal clave para engagement. En contraste, EMAIL y SMS tienen una conversión notablemente menor (\~75-80%).
+
+Edad: Los grupos 25-44 años son los más comprometidos: no solo convierten más rápido (mayoría en las primeras 30 días), sino que también concentran el mayor volumen de transacciones, principalmente en gastos diarios como restaurantes y supermercados. En cambio, los extremos (<25 y 65+) mantienen menor conversión y mayor riesgo de churn.
+
+Plan: STANDARD sigue siendo el plan mayoritario y concentra tanto el volumen de usuarios como el de churn. PREMIUM y METAL, aunque de menor volumen, presentan tasas de conversión y retención superiores.
+
+País: Reino Unido, Polonia y Francia siguen siendo los focos principales por volumen y divergencia en churn; ahí es donde los esfuerzos de engagement tendrían más impacto.
+
+---
+
+✅ Understand product usage and identify personae
+
+El uso del producto está dominado por:
+
+  Retiros de efectivo (cash withdrawals): la categoría MCC más popular, especialmente entre 35-44 años y usuarios STANDARD.
+  Consumo diario (restaurantes, supermercados): destacan usuarios 25-34 y STANDARD.
+  Premium users tienen menos volumen, pero participan en categorías como hoteles o apuestas, asociadas a gasto ocasional o de mayor ticket.
+
+Patrones claros de personae:
+
+  El usuario masivo es STANDARD, 25-44 años, que gasta en consumo diario y usa PUSH como canal clave.
+  El usuario premium (PREMIUM/METAL) tiene menor volumen pero uso más sofisticado y diversificado.
+  Los extremos de edad muestran menor uso y conversión, especialmente si están en canales menos efectivos (EMAIL/SMS).
+
+---
+
+✅ Provide business recommendations to the product team to reduce churn rate
+
+Canales: Rediseñar la estrategia para usuarios que reciben EMAIL/SMS, cambiando o complementando por PUSH, que es claramente más efectivo.
+
+Planes: Para STANDARD, implementar promociones o mejoras funcionales (cashback en MCC populares como supermercados y restaurantes) que incrementen valor percibido y reduzcan el riesgo de churn.
+
+Grupos etarios extremos: Diseñar flujos de onboarding y comunicación específicos para <25 y 65+, más guiados e intuitivos, que reduzcan fricciones y aceleren la primera transacción.
+
+Por uso MCC: Incentivar el gasto recurrente en categorías de alta frecuencia (restaurantes, supermercados) mediante recompensas, y estudiar los motivos detrás del alto uso de retiros de efectivo (¿falta de aceptación del producto en POS?, ¿costos?).
+
+Geografía: Priorizar retención en Reino Unido, Polonia y Francia, donde se concentra la base y el churn.
+
+---
+
+👤 Perfiles de usuario con la nueva data
+
+---
+
+#👤 Perfil 1: Usuario masivo estándar y diario
+
+Plan: STANDARD
+Edad: 25-44 años
+Canal: PUSH (alta conversión y respuesta)
+MCC: Gastos recurrentes (supermercados, restaurantes, cash withdrawals)
+País: Reino Unido, Polonia, Francia
+Comportamiento: Rápida conversión si recibe notificaciones PUSH; gasto consistente en consumo diario.
+Necesidad: Incentivos en categorías recurrentes, reforzar onboarding inicial.
+Riesgo: Alto churn si no transaccionan en los primeros 30-60 días.
+
+---
+
+#👤 Perfil 2: Usuario premium de alto valor y baja tolerancia al error
+
+Plan: PREMIUM / METAL
+Edad: 35-54 años
+Canal: PUSH / EMAIL combinado (mejor retención incluso sin conversión inmediata)
+MCC: Mayor diversidad: hoteles, apuestas, restaurantes; menor en consumo diario.
+País: Francia, Alemania, Irlanda
+Comportamiento: Menor volumen de usuarios pero engagement más estable; mayor valor por transacción.
+Necesidad: Programas de lealtad exclusivos, features premium claros.
+Riesgo: Abandono si la propuesta no cumple expectativas premium.
+
+---
+
+#👤 Perfil 3: Usuario de bajo engagement y alto riesgo
+
+Plan: STANDARD, PREMIUM\_FREE
+Edad: <25 o >65 años
+Canal: EMAIL / SMS (baja efectividad)
+MCC: Bajo uso en cualquier categoría, conversiones lentas o inexistentes.
+País: España, Malta, Portugal
+Comportamiento: Poco activo, difícil de enganchar si no se interviene rápidamente.
+Necesidad: Flujos personalizados, migración a canales más efectivos, promociones iniciales agresivas.
+Riesgo: Muy alto churn si no hay activación temprana.
+
+---
