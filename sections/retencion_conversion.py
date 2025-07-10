@@ -147,25 +147,83 @@ def transaction_1_7_30(df):
     fig_histograma_conversion.update_layout(yaxis_range=[0, 100])
     return fig_histograma_conversion
 
+def histograma_dias(df, dis):
+    # Filtrar valores válidos
+    df_filtrado = df[
+        df['dias_a_primera_txn'].notna() &
+        df[dis].notna() &
+        (df['dias_a_primera_txn'] <= 60)
+    ]
+
+    # Crear histograma apilado o agrupado por age_group
+    fig_dias = px.histogram(
+        df_filtrado,
+        x='dias_a_primera_txn',
+        color=dis,
+        nbins=60,
+        barmode='stack',  # Cambia a 'stack' si quieres apilado
+        labels={
+            'dias_a_primera_txn': 'Días a primera transacción',
+            'count': 'Número de usuarios',
+            dis: dis
+        },
+        color_discrete_sequence = [
+            "rgb(176, 242, 188)",
+            "rgb(103, 219, 165)",
+            "rgb(56, 178, 163)",
+            "rgb(37, 125, 152)",
+        ]
+    )
+
+    fig_dias.update_layout(
+        yaxis_title='Número de usuarios',
+        bargap=0.1
+    )
+
+    return fig_dias, f'Días hasta la primera transacción por {dis}'
+
+
 def retencion_conversion(df):
 
     fig = primera_transaccion(df)
     fig_histograma_conversion = transaction_1_7_30(df)
+    fig_dias_channel, title_dias_channel = histograma_dias(df, 'channel')
+    fig_dias_plan, title_dias_plan = histograma_dias(df, 'plan')
+    fig_dias_age_group, title_dias_age_group = histograma_dias(df, 'age_group')
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3, col4, col5 = st.columns(5)
+    col1_1, col1_2 = st.columns(2)
+    col2_1, col2_2 = st.columns(2)
+    col3_1, col3_2 = st.columns(2)
 
     # [col1] = st.columns(1)
 
     with col1:
-        # Histograma
-        st.markdown('Días hasta la primera transacción')
-        st.plotly_chart(fig, use_container_width=True)
+        with col1_1:
+            # Histograma
+            st.markdown('Días hasta la primera transacción')
+            st.plotly_chart(fig, use_container_width=True)
+        with col1_2:
+            # bar
+            st.markdown('% de usuarios que convierten en 1, 7 y 30 días')
+            # fig2 = nuevos_x_activos(df)
+            st.plotly_chart(fig_histograma_conversion, use_container_width=True)
 
     with col2:
-        # bar
-        st.markdown('% de usuarios que convierten en 1, 7 y 30 días')
-        # fig2 = nuevos_x_activos(df)
-        st.plotly_chart(fig_histograma_conversion, use_container_width=True)
+        with col2_1:
+            # bar
+            st.markdown(title_dias_channel)
+            st.plotly_chart(fig_dias_channel, use_container_width=True)
+        with col2_2:
+            # bar
+            st.markdown(title_dias_plan)
+            st.plotly_chart(fig_dias_plan, use_container_width=True)
+
+    with col3:
+        with col3_1:
+            # bar
+            st.markdown(title_dias_age_group)
+            st.plotly_chart(fig_dias_age_group, use_container_width=True)
 
 
     
