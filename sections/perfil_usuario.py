@@ -198,21 +198,21 @@ def usuarios_por_mcc(df):
     top_mcc = usuarios_mcc.head(20)
 
     fig_mcc = px.bar(
-        top_mcc,
+        top_mcc.head(5),
         x='usuarios',
         y='mcc_description',
         orientation='h',
-        labels={'usuarios': 'Usuarios únicos', 'mcc_description': 'Categoría MCC'},
+        # labels={'usuarios': 'Usuarios únicos', 'mcc_description': 'Categoría MCC'},
         text='usuarios',
         color='usuarios',
         color_continuous_scale='Tealgrn'
     )
 
-    fig_mcc.update_traces(textposition='outside')
-    fig_mcc.update_layout(
-        xaxis_title='Número de usuarios',
-        yaxis_title='Categoría MCC',
-    )
+    # fig_mcc.update_traces(textposition='outside')
+    # fig_mcc.update_layout(
+    #     xaxis_title='Número de usuarios',
+    #     yaxis_title='Categoría MCC',
+    # )
 
     return fig_mcc
 
@@ -303,6 +303,43 @@ def plan_por_mcc(df):
 
     return fig_mcc_plan
 
+def amount(df, distribucion):
+    # Asegurarse de que total_amount_usd y age_group existan y no sean nulos
+    df_filtrado = df[df['total_amount_usd'].notna() & df[distribucion].notna()]
+    
+    # Agrupar por grupo de edad y sumar el monto
+    monto_edad = (
+        df_filtrado
+        .groupby(distribucion)['total_amount_usd']
+        .sum()
+        .reset_index()
+        .sort_values(by='total_amount_usd', ascending=False)
+    )
+
+    # Agregar columna formateada para mostrar como texto
+    monto_edad['monto_formateado'] = monto_edad['total_amount_usd'].apply(lambda x: f"${x:,.2f}")
+
+    # Crear gráfico de barras
+    fig_amount = px.bar(
+        monto_edad.head(10),
+        x=distribucion,
+        y='total_amount_usd',
+        labels={distribucion: 'Grupo de edad', 'total_amount_usd': 'Monto total (USD)'},
+        color='total_amount_usd',
+        color_continuous_scale='Tealgrn',
+        text='monto_formateado'  # texto formateado en la barra
+    )
+
+    fig_amount.update_traces(textposition='outside')
+    fig_amount.update_layout(
+        xaxis_title='Grupo de edad',
+        yaxis_title='Monto total en USD',
+        yaxis_tickformat=',.0f'  # también aplica formato al eje Y
+    )
+
+    return fig_amount, f'Cantidad en USD por {distribucion}'
+
+
 def perfil_usuario(df):
     fig_plan = plan(df)
     fig_edad = distribucion_por_edad(df)
@@ -316,14 +353,23 @@ def perfil_usuario(df):
     fig_mcc = usuarios_por_mcc(df)
     fig_mcc_age = grupo_edad_por_mcc(df)
     fig_mcc_plan = plan_por_mcc(df)
+    fig_amount_age_group, title_amount_age_group = amount(df, 'age_group')
+    fig_amount_plan, title_amount_plan = amount(df, 'plan')
+    fig_amount_channel, title_amount_channel = amount(df, 'channel')
+    fig_amount_country_name, title_amount_country_name = amount(df, 'country_name')
+    fig_amount_brand_device, title_amount_brand_device = amount(df, 'brand_device') 
+    fig_amount_mcc_description, title_amount_mcc_description = amount(df, 'mcc_description')
 
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    col1, col2, col3, col4, col5, col6, col7, col8, col9 = st.columns(9)
     col1_1, col1_2, col1_3 = st.columns(3)
     col2_1, col2_2, col2_3 = st.columns(3)
     col3_1, col3_2, col3_3 = st.columns(3)
     [col4_1] = st.columns(1)
     [col5_1] = st.columns(1)
     [col6_1] = st.columns(1)
+    col7_1, col7_2 = st.columns(2)
+    col8_1, col8_2 = st.columns(2)
+    col9_1, col9_2 = st.columns(2)
 
     with col1:
         with col1_1:
@@ -371,4 +417,25 @@ def perfil_usuario(df):
         with col6_1:
             st.markdown('Categoría MCC por plan')
             st.plotly_chart(fig_mcc_plan, use_container_width=True)
-        
+
+    with col7:
+        with col7_1:
+            st.markdown(title_amount_age_group)
+            st.plotly_chart(fig_amount_age_group, use_container_width=True)
+        with col7_2:
+            st.markdown(title_amount_plan)
+            st.plotly_chart(fig_amount_plan, use_container_width=True)
+    with col8:
+        with col8_1:
+            st.markdown(title_amount_channel)
+            st.plotly_chart(fig_amount_channel, use_container_width=True)
+        with col8_2:
+            st.markdown(title_amount_country_name)
+            st.plotly_chart(fig_amount_country_name, use_container_width=True)
+    with col9:
+        with col9_1:
+            st.markdown(title_amount_brand_device)
+            st.plotly_chart(fig_amount_brand_device, use_container_width=True)
+        with col9_2:
+            st.markdown(title_amount_mcc_description)
+            st.plotly_chart(fig_amount_mcc_description, use_container_width=True)
