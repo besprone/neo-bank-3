@@ -5,9 +5,12 @@ import pydeck as pdk
 from utils.filtrar_no_convertidos import filtrar_no_convetidos
 
 def churned_distribucion(df, distribucion):
+    # 🔍 0) Filtrar usuarios que hicieron al menos una transacción
+    df_filtrado = df.query("converted == True").copy()
+
     # 1) Agrupar usuarios únicos por distribución y estado de churn
     churn_by_plan = (
-        df.drop_duplicates(subset='user_id')
+        df_filtrado.drop_duplicates(subset='user_id')
         .groupby([distribucion, 'churned'])['user_id']
         .nunique()
         .reset_index(name='usuarios')
@@ -37,10 +40,9 @@ def churned_distribucion(df, distribucion):
         x=distribucion,
         y='usuarios',
         color='Estado',
-        # barmode='stack',
         color_discrete_map={
-            'Churned': px.colors.qualitative.Set1[0],     # rojo de Set1
-            'No Churned': px.colors.qualitative.Set1[1],  # azul de Set1
+            'Churned': px.colors.qualitative.Set1[0],     # rojo
+            'No Churned': px.colors.qualitative.Set1[1],  # azul
         },
         text_auto=True
     )
@@ -50,6 +52,7 @@ def churned_distribucion(df, distribucion):
     fig_churn.update_layout(yaxis_title='Número de usuarios')
 
     return fig_churn, f'Distribución de churned vs. no churned ({distribucion})'
+
 
 def analisis_inactividad(df, distribucion):
     # ✅ Usar la columna 'activo' ya calculada en el dataset

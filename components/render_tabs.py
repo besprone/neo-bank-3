@@ -3,4 +3,13 @@
 import streamlit as st
 
 def render_tabs():
-    return st.tabs(["Resumen general", "Perfiles de usuario", "Retención y conversión", "Churn", 'Predicción de churn'])
+    return st.tabs(
+        [
+            "Resumen general", 
+            "Perfiles de usuario", 
+            "Retención y conversión",
+            'Engagement',
+            "Churn", 
+            'Predicción de churn'
+        ]
+    )

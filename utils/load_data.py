@@ -88,5 +88,15 @@ def load_unique_options():
 
     return countries, plans, country_cities
 
+@st.cache_data
+def load_df_engagement_con_churn():
+    client = bigquery.Client(credentials=credentials, project=credentials.project_id)
+    query = """
+        SELECT * FROM `numeric-advice-452700-j9.neo_bank_.user_engagement` 
+    """
+    df = client.query(query).to_dataframe()
+    return df
+
+
 
 
