@@ -34,6 +34,9 @@ def churned_distribucion(df, distribucion):
     # 4) Mapear etiquetas legibles para churn
     churn_by_plan['Estado'] = churn_by_plan['churned'].map({True: 'Churned', False: 'No Churned'})
 
+    # churn__ = churn_by_plan.groupby(distribucion)['churned'].count()
+    # st.dataframe(churn__, use_container_width=True)
+
     # 5) Graficar barras apiladas con orden correcto y colores Set1
     fig_churn = px.bar(
         churn_by_plan.sort_values([distribucion, 'Estado']).head(10),
@@ -160,9 +163,16 @@ def churn(df):
 
     # churn
     fig_churn_channel, title_churn_channel = churned_distribucion(df, 'channel')
+    # fig_churn_channel.write_image("svg/fig_churn_channel.svg")
+
     fig_churn_plan, title_churn_plan = churned_distribucion(df, 'plan')
+    # fig_churn_plan.write_image("svg/fig_churn_plan.svg")
+
     fig_churn_age_group, title_churn_age_group = churned_distribucion(df, 'age_group')
+    # fig_churn_age_group.write_image("svg/fig_churn_age_group.svg")
+
     fig_churn_country_name, title_churn_country_name = churned_distribucion(df, 'country_name')
+    # fig_churn_country_name.write_image("svg/fig_churn_country_name.svg")
 
     col1, col2, col3 = st.columns(3)
     col1_1, col1_2, col1_3, col1_4 = st.columns(4)

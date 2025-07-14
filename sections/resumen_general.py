@@ -119,7 +119,10 @@ def resumen_general(df, df_retencion_cohortes):
     churn_rate_ = churn_rate(df)
     evoluacion_usuarios_ = evoluacion_usuarios(df)
     fig_matrix = curva_retencion(df_retencion_cohortes)
+
     fig_churn = churned(df)
+    # fig_churn.write_image("svg/fig_churn.svg")
+    
 
     col1, col2 = st.columns(2)
     col1_1, col1_2, col1_3, col1_4 = st.columns(4)

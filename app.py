@@ -7,7 +7,7 @@ from sections.perfil_usuario import perfil_usuario
 from sections.churn import churn
 from sections.prediccion_form import prediccion_form
 from sections.prediccion_form_2 import prediccion_form_2
-from sections.engagement import engagement
+from sections.engagement_refactor import engagement
 
 from utils.style_loader import load_css
 from utils.load_data import load_df_resumen_general, load_df_retencion_cohortes, load_df_perfil_usuario, load_df_retencion_conversion, load_df_churn, load_df_engagement_con_churn
@@ -55,6 +55,7 @@ with tab4:
     st.header("👥 Engagement")
     df_engagement_churn = load_df_engagement_con_churn()
     engagement(df_engagement_churn)
+    
 
 with tab5:
     st.header("⚠️ Identificación de churn")

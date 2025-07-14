@@ -1,0 +1,169 @@
+V1
+
+1.- Hola, somos el equipo de análisis de datos de México y Chile y hoy les vamos a presentar un proyecto enfocado en resolver un reto común para muchas empresas digitales: 
+
+¿Cómo reducimos el abandono de usuarios? 
+En este caso, lo abordamos desde el análisis de datos y la predicción de churn para Neo Bank. 
+Vamos a compartirles qué aprendimos sobre el comportamiento de los usuarios, cómo identificamos señales de abandono, y qué acciones puede tomar el equipo de producto para mejorar la retención.”
+
+3.- Antes de entrar en el análisis, partimos de esta fotografía general: Neo Bank cuenta con 19,430 usuarios en total, y de ellos, 18,766 han realizado al menos una transacción. 
+Es decir, casi todos activaron su cuenta en algún momento. Pero cuando analizamos la retención, encontramos que el 24.36% de los usuarios abandona la app. 
+Eso significa que 1 de cada 4 usuarios se va. Este porcentaje nos motivó a entender quiénes se van, cuándo y por qué, para poder anticiparlo y reducirlo.”
+
+4.- La mayoría de los usuarios están entre 26 y 35 años, seguidos por el grupo de 18 a 25 años. El plan STANDARD es el más utilizado con amplia diferencia frente a otras opciones. Los usuarios se concentran principalmente en Irlanda, Polonia, Suiza y Reino Unido, tanto en número como en monto transaccionado.
+
+5.- En cuanto a comunicación, el canal PUSH es el dominante, con poca efectividad en email y SMS. Solo un 18% ha activado la funcionalidad de cripto, lo que indica baja adopción. En cuanto a uso, la mayoría de transacciones se realizan en retiros manuales de efectivo, seguidos por restaurantes, supermercados y hoteles.
+
+6.- Para clasificar a los usuarios según su nivel de uso y compromiso, usamos un modelo de machine learning que predice la probabilidad de abandono. A partir de ese modelo, calculamos un score de engagement y los agrupamos en tres niveles: bajo, medio y alto. El hallazgo más importante es que el número de transacciones es la señal más fuerte para anticipar la salida de un usuario. Esto confirma que la clave está en fomentar la recurrencia de uso.
+
+7.- La mayoría de usuarios con alto engagement están en el plan Standard y tienen entre 26 y 45 años. Estos grupos representan nuestra mayor oportunidad: ya están activos y podemos seguir impulsando su uso.
+
+8.- También encontramos que los más activos prefieren canales PUSH y se concentran en países como UK y Francia. El valor transaccionado crece de forma drástica a mayor engagement: quienes están en nivel alto, mueven mucho más dinero.
+
+9.- ¿Cómo medimos el abandono? 
+Consideramos abandonado” a quien no ha hecho una transacción en más de 90 días. 1 de cada 4 usuarios está inactivo.
+
+10.- Aunque el abandono está presente en todos los canales, es más frecuente en usuarios que recibieron solo notificaciones push. También se observa más churn en los extremos de edad: jóvenes y adultos mayores son los más difíciles de retener.
+
+11.- El abandono se concentra en Reino Unido, seguido de Polonia y Francia. El plan Standard, por su volumen, es el más afectado. Pero el churn está presente en todos los planes, incluso los premium.
+
+12.- Creamos un modelo que simula el riesgo de abandono según las características del usuario. Al simular, notamos dos perfiles claros: 
+Usuario comprometido: transacciona con frecuencia, tiene notificaciones activas, y está en el plan Standard, entre 26 y 45 años. 
+Usuario en riesgo: tiene pocas o nulas transacciones, desactiva notificaciones y pertenece a planes gratuitos, usualmente menor de 25 o mayor de 56 años. 
+Este modelo nos ayuda a anticipar el abandono y tomar acción.
+
+13.- A partir del análisis, proponemos 5 acciones clave para reducir el abandono: 
+Apostar por los usuarios con engagement medio. 
+Reforzar el canal Push, el más efectivo en retención. 
+Enfocar esfuerzos en usuarios de 26 a 45 años. 
+Consolidar la presencia en Reino Unido y Polonia. 
+Impulsar campañas para quienes usan el plan Standard.
+
+14.- Gracias por su atención. Quedamos abiertos a preguntas o retroalimentación.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+V2
+
+---
+
+1. Introducción al reto
+
+Hola, somos el equipo de análisis de datos de México y Chile. Hoy les traemos un reto que muchas empresas digitales enfrentan:
+¿Cómo reducimos el abandono de usuarios?
+Lo abordamos desde el análisis de datos y la predicción de churn para Neo Bank.
+Queremos compartir qué aprendimos sobre el comportamiento de los usuarios, cómo identificamos señales de abandono, y qué acciones puede tomar el equipo de producto para mejorar la retención.”
+
+---
+
+2. La fotografía general
+
+Antes de adentrarnos en los datos, veamos la fotografía completa.
+Neo Bank cuenta con 19,430 usuarios registrados, y 18,766 han realizado al menos una transacción.
+
+Es decir, la gran mayoría activó su cuenta.
+Pero hay un dato que nos alertó:
+El 24.36% de los usuarios ha abandonado la app.
+Eso significa que 1 de cada 4 usuarios se va.
+Queríamos entender quiénes se van, cuándo y por qué… para anticiparlo y evitarlo.”
+
+---
+
+3. Perfil demográfico y de plan
+
+La mayoría de nuestros usuarios tiene entre 26 y 35 años, seguidos por jóvenes de 18 a 25.
+El plan STANDARD es el más popular por mucho.
+Geográficamente, nuestros usuarios se concentran en Irlanda, Polonia, Suiza y Reino Unido, tanto por cantidad como por monto transaccionado.”
+
+---
+
+4. Canales y comportamiento
+
+En cuanto a comunicación, el canal Push domina, mientras que email y SMS tienen bajo impacto.
+Solo un 18% ha activado cripto, lo que muestra baja adopción.
+¿Y cómo usan la app?
+Principalmente para retiros manuales de efectivo, seguidos por restaurantes, supermercados y hoteles.”
+
+---
+
+5. Modelo de engagement
+
+Para entender el compromiso de uso, usamos un modelo de machine learning que predice el abandono.
+Con él generamos un score de engagement y lo clasificamos en tres niveles: bajo, medio y alto.
+El hallazgo más fuerte:
+El número de transacciones es la mejor señal para anticipar el churn.
+La clave está en lograr que los usuarios vuelvan y usen la app con frecuencia.”
+
+---
+
+6. Quiénes tienen más engagement
+
+Los usuarios con engagement alto están en el plan Standard y tienen entre 26 y 45 años.
+Ya están activos, son nuestra mayor oportunidad.
+¿Y si logramos que más usuarios se parezcan a ellos?”
+
+---
+
+7. Qué los distingue
+
+Los más comprometidos también prefieren los canales Push, y viven en países como UK y Francia.
+Además, el valor transaccionado se dispara cuando el engagement es alto.
+No solo son más activos, también son más valiosos.
+
+---
+
+8. ¿Qué es abandono?
+
+Definimos como ‘abandonado’ al usuario que no ha hecho ninguna transacción en los últimos 90 días.
+Con esta definición, 1 de cada 4 usuarios está inactivo.
+Es una señal clara: si no transaccionan, los perdemos.”
+
+---
+
+9. Dónde y a quién afecta más
+
+El abandono afecta todos los canales, pero es más frecuente en quienes solo recibieron notificaciones Push.
+También vimos más churn en los extremos de edad:
+Los más jóvenes y los mayores son los más difíciles de retener.
+
+---
+
+10. Países y planes afectados
+
+El abandono se concentra en Reino Unido, Polonia y Francia.
+Y aunque el plan Standard es el más afectado por volumen, el churn ocurre en todos los planes, incluso los premium.
+Esto nos dice que no es solo un tema de plan, sino de uso y activación.
+
+---
+
+11. Simulación de perfiles
+
+Simulamos escenarios de abandono y emergieron dos perfiles claros:
+
+Usuario comprometido: transacciona seguido, recibe notificaciones, está en plan Standard y tiene entre 26 y 45 años.
+Usuario en riesgo: casi no transacciona, no recibe notificaciones, tiene un plan gratuito y suele ser muy joven o mayor.
+
+Este modelo nos ayuda a detectar riesgos antes de que sea tarde.
+
+---
+
+12. Recomendaciones
+
+A partir del análisis, proponemos 5 acciones clave para mejorar la retención:
+
+1. Apostar por los usuarios con engagement medio: están en el punto de inflexión.
+2. Reforzar Push, el canal más efectivo.
+3. Enfocar esfuerzos en usuarios de 26 a 45 años.
+4. Consolidar presencia en Reino Unido y Polonia.
+5. Lanzar campañas específicas para el plan Standard.”
+
+---
+
+13. Cierre
+
+Gracias por su atención.
+Estamos abiertos a preguntas, comentarios o ideas para llevar estas acciones a la realidad.
+Reducir el churn es posible si entendemos a nuestros usuarios.
+
+---

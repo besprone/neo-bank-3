@@ -43,6 +43,7 @@ def distribucion_por_edad(df):
         labels={'age_group': 'Grupo de edad', 'usuarios': 'Usuarios'},
         color_continuous_scale='Tealgrn'
     )
+
     return fig_edad
 
 
@@ -108,6 +109,9 @@ def canal(df):
         labels={'channel': 'Canal de adquisición', 'usuarios': 'Usuarios'},
         color_continuous_scale='Tealgrn', text='usuarios'
     )
+
+    # fig_canal.write_image("svg/canal.svg")
+
     return fig_canal
 
 def devices(df):
@@ -121,6 +125,9 @@ def devices(df):
         labels={'usuarios': 'Usuarios únicos', 'brand_device': 'Dispositivo'},
         color='usuarios', color_continuous_scale='Tealgrn', text='usuarios'
     )
+
+    # fig_devices.write_image("svg/devices.svg")
+
     return fig_devices
 
 def transacciones_por_segmento(df):
@@ -181,6 +188,9 @@ def uso_crypto(df):
         color_discrete_sequence=["rgb(37, 125, 152)", "rgb(176, 242, 188)"],  # usa Tealgrn como lista discreta
         hole=0.4
     )
+
+    # fig_crypto.write_image("svg/crypto.svg")
+
     return fig_crypto
 
 def usuarios_por_mcc(df):
@@ -213,6 +223,8 @@ def usuarios_por_mcc(df):
     #     xaxis_title='Número de usuarios',
     #     yaxis_title='Categoría MCC',
     # )
+
+    # fig_mcc.write_image("svg/mcc.svg")
 
     return fig_mcc
 
@@ -356,7 +368,10 @@ def perfil_usuario(df):
     fig_amount_age_group, title_amount_age_group = amount(df, 'age_group')
     fig_amount_plan, title_amount_plan = amount(df, 'plan')
     fig_amount_channel, title_amount_channel = amount(df, 'channel')
+
     fig_amount_country_name, title_amount_country_name = amount(df, 'country_name')
+    # fig_amount_country_name.write_image("svg/perfil_usuario/amount_country_name.svg")
+
     fig_amount_brand_device, title_amount_brand_device = amount(df, 'brand_device') 
     fig_amount_mcc_description, title_amount_mcc_description = amount(df, 'mcc_description')
 
